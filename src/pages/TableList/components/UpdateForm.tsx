@@ -22,7 +22,6 @@ export type UpdateFormProps = {
   updateModalVisible: boolean;
   values: Partial<API.RuleListItem>;
 };
-
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   return (
     <StepsForm
@@ -153,5 +152,4 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     </StepsForm>
   );
 };
-
 export default UpdateForm;

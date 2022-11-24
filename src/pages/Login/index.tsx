@@ -139,8 +139,8 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           form={form}
-          logo={<img alt="logo" src="/logo.png" />}
-          title=""
+          logo={<img alt="logo" src="/logo.png?update=20221124" />}
+          title="MixBench"
           subTitle={'微服务中台系统'}
           initialValues={{
             autoLogin: true,
@@ -154,7 +154,9 @@ const Login: React.FC = () => {
             await handleSubmit({ ...values, captcha_id });
           }}
         >
-          <Tabs activeKey={type} onChange={setType}
+          <Tabs
+            activeKey={type}
+            onChange={setType}
             centered
             items={[
               {
