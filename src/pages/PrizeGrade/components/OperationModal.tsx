@@ -5,7 +5,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { PrizeGrade as BasicListItemDataType } from '@/services/global-api/admin-custom';
+import { PrizeGrade as BasicListItemDataType } from '@/services/backend-api/admin-custom';
 
 type OperationModalProps = {
   done: boolean;

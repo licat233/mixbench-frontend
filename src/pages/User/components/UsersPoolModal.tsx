@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import { ModalForm, ProFormDigit, ProFormInstance, ProFormSelect } from '@ant-design/pro-form';
-import { activityEnumList, projectEnumList, UsersPool } from '@/services/global-api/admin-custom';
+import { activityEnumList, projectEnumList, UsersPool } from '@/services/backend-api/admin-custom';
 import styles from '../style.less';
 import { message } from 'antd';
 import { ActivityDetailInfo } from '../data';

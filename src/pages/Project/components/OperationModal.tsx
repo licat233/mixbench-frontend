@@ -5,7 +5,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Project as BasicListItemDataType } from '@/services/global-api/admin-custom';
+import { Project as BasicListItemDataType } from '@/services/backend-api/admin-custom';
 
 type OperationModalProps = {
   done: boolean;

@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react';
 import { ModalForm, ProFormDigit, ProFormInstance, ProFormSelect, ProFormItem } from '@ant-design/pro-form';
-import { Prize, prizeInfo, PrizesPool } from '@/services/global-api/admin-custom';
-import { prizeEnumList, prizeGradeEnumList } from '@/services/global-api/admin-custom';
+import { Prize, prizeInfo, PrizesPool } from '@/services/backend-api/admin-custom';
+import { prizeEnumList, prizeGradeEnumList } from '@/services/backend-api/admin-custom';
 import styles from '../style.less';
 import { message } from 'antd';
 import { PrizeDetailInfo } from '../data';

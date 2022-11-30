@@ -1,7 +1,7 @@
-import { putPassword } from '@/services/global-api/admin-custom';
-import type { PutPasswordReq } from '@/services/global-api/adminComponents';
-import { mathCaptcha } from '@/services/global-api/captcha-custom';
-import { CaptchaInfo, CaptchaReq } from '@/services/global-api/captchaComponents';
+import { putPassword } from '@/services/backend-api/admin-custom';
+import type { PutPasswordReq } from '@/services/backend-api/adminComponents';
+import { mathCaptcha } from '@/services/backend-api/captcha-custom';
+import { CaptchaInfo, CaptchaReq } from '@/services/backend-api/captchaComponents';
 import { SafetyCertificateOutlined } from '@ant-design/icons';
 import {
     ProFormText,

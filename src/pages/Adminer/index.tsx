@@ -10,8 +10,8 @@ import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { adminerAdd as add, adminerDel as del, adminerList as list, adminerPut as put } from '@/services/global-api/admin-custom';
-import { Adminer as Item, AdminerAddReq as AddReq, AdminerPutReq as PutReq, AdminerListReqParams as Params } from "@/services/global-api/adminComponents";
+import { adminerAdd as add, adminerDel as del, adminerList as list, adminerPut as put } from '@/services/backend-api/admin-custom';
+import { Adminer as Item, AdminerAddReq as AddReq, AdminerPutReq as PutReq, AdminerListReqParams as Params } from "@/services/backend-api/adminComponents";
 import OperationModal from './components/OperationModal';
 import { useModel } from '@umijs/max';
 

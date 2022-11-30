@@ -45,6 +45,6 @@ export interface SearchReq {
 export interface SelectPrizesReq {
 	activity_id: number // 活动id，需要传入活动id，用于查询redis缓存
 	activity_uuid: string // 活动uuid
-	lucker_uuid_list: Array<string> // 中奖名单UUID
+	lucker_uuid_list: string[] // 中奖名单UUID
 }
 

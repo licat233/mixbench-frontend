@@ -7,7 +7,7 @@ import {
   ProFormItem,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Prize as BasicListItemDataType, uploadImg } from '@/services/global-api/admin-custom';
+import { Prize as BasicListItemDataType, uploadImg } from '@/services/backend-api/admin-custom';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, UploadProps, UploadFile, Upload } from 'antd';
 import { RcFile, UploadChangeParam } from 'antd/lib/upload';

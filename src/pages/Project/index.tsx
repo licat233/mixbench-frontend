@@ -9,8 +9,8 @@ import '@umijs/max';
 import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { projectAdd as add, projectDel as del, projectList as list, projectPut as put} from '@/services/global-api/admin-custom';
-import { Project as Item, ProjectAddReq as AddReq, ProjectPutReq as PutReq, ProjectListReqParams as Params} from "@/services/global-api/adminComponents";
+import { projectAdd as add, projectDel as del, projectList as list, projectPut as put} from '@/services/backend-api/admin-custom';
+import { Project as Item, ProjectAddReq as AddReq, ProjectPutReq as PutReq, ProjectListReqParams as Params} from "@/services/backend-api/adminComponents";
 import OperationModal from './components/OperationModal';
 
 /**

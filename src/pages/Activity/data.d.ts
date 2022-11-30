@@ -1,5 +1,5 @@
-import { Activity } from '@/services/global-api/admin-custom';
-import { PrizesPool } from "@/services/global-api/adminComponents";
+import { Activity } from '@/services/backend-api/admin-custom';
+import { PrizesPool } from "@/services/backend-api/adminComponents";
 
 export type PrizeDetailInfo = {
     index: number;

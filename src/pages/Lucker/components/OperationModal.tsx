@@ -8,7 +8,7 @@ import {
   ProFormDigit,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Activity, ActivityPrize, activityPrizes, LuckerDetails, LuckerPutReq, projectActivity, projectEnumList } from '@/services/global-api/admin-custom';
+import { Activity, ActivityPrize, activityPrizes, LuckerDetails, LuckerPutReq, projectActivity, projectEnumList } from '@/services/backend-api/admin-custom';
 import { message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import { luckerFormData, ReqStorage } from '../data';

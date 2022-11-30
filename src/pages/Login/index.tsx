@@ -1,8 +1,8 @@
 import Footer from '@/components/Footer';
-import { login, loginByEmail, loginEmailCaptcha } from '@/services/global-api/admin-custom';
-import type { LoginReq, LoginByEmailReq } from '@/services/global-api/adminComponents';
-import type { CaptchaInfo, CaptchaReq, EmailCaptchaResp } from '@/services/global-api/captchaComponents';
-import { mathCaptcha } from '@/services/global-api/captcha-custom';
+import { login, loginByEmail, loginEmailCaptcha } from '@/services/backend-api/admin-custom';
+import type { LoginReq, LoginByEmailReq } from '@/services/backend-api/adminComponents';
+import type { CaptchaInfo, CaptchaReq, EmailCaptchaResp } from '@/services/backend-api/captchaComponents';
+import { mathCaptcha } from '@/services/backend-api/captcha-custom';
 import {
   LockOutlined,
   MailOutlined,
@@ -139,7 +139,7 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           form={form}
-          logo={<img alt="logo" src="/logo.png?update=20221124" />}
+          logo={<img alt="logo" src="/logo.png" />}
           title="MixBench"
           subTitle={'微服务中台系统'}
           initialValues={{

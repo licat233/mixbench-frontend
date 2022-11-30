@@ -8,7 +8,7 @@ import {
 } from '@ant-design/pro-form';
 import type { ActionType } from '@ant-design/pro-table';
 import type { SelectProps } from 'antd';
-import { Adminer, adminerAdd } from '@/services/global-api/admin-custom';
+import { Adminer, adminerAdd } from '@/services/backend-api/admin-custom';
 import { ProFormUploadDragger } from '@ant-design/pro-components';
 
 type CreateFormProps = {

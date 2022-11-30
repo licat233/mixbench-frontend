@@ -1,4 +1,4 @@
-import { User, Activity, UsersPool } from "@/services/global-api/adminComponents"
+import { User, Activity, UsersPool } from "@/services/backend-api/adminComponents"
 export type ActivityDetailInfo = {
     key: number | string;
     //显示

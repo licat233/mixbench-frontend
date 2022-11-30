@@ -9,8 +9,8 @@ import '@umijs/max';
 import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { prizeAdd as add, prizeDel as del, prizeList as list, prizePut as put } from '@/services/global-api/admin-custom';
-import { Prize as Item, PrizeAddReq as AddReq, PrizePutReq as PutReq, PrizeListReqParams as Params } from "@/services/global-api/adminComponents";
+import { prizeAdd as add, prizeDel as del, prizeList as list, prizePut as put } from '@/services/backend-api/admin-custom';
+import { Prize as Item, PrizeAddReq as AddReq, PrizePutReq as PutReq, PrizeListReqParams as Params } from "@/services/backend-api/adminComponents";
 import OperationModal from './components/OperationModal';
 
 /**

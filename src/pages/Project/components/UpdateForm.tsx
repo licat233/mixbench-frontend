@@ -5,7 +5,7 @@ import {
   ProFormText,
   StepsForm,
 } from '@ant-design/pro-form';
-import { Adminer, AdminerPutReq } from '@/services/global-api/admin-custom';
+import { Adminer, AdminerPutReq } from '@/services/backend-api/admin-custom';
 import { ProFormUploadDragger } from '@ant-design/pro-components';
 
 export type UpdateFormProps = {

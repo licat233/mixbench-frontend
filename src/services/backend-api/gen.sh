@@ -3,10 +3,17 @@
 #给予shell文件执行权限：chmod a+x gen.sh
 #执行shell文件：./gen.sh
 
-# domain="https://luck.catli.net"
-domain="http://luckdraw.com"
+domain="http://micro.mixbench.net"
 
-#更新Components.ts接口文件
+current_path=$(
+  cd $(dirname $0)
+  pwd
+)
+
+cd $current_path
+
+#更新Components.ts接口文件与swagger.json网关文件
+mkdir -p json
 names=("admin" "captcha" "luckdraw")
 for name in ${names[@]}; do
   filename="${name}Components.ts"
@@ -17,9 +24,21 @@ for name in ${names[@]}; do
     rm -f "new-${filename}"
     exit
   fi
-  echo "${filename} 下载完成"
   rm -f $filename
   mv "new-${filename}" $filename
+  echo "${filename} 下载完成"
+
+  filename="${name}.json"
+  tsurl="${domain}/v1/api/${name}/static/swagger.json"
+  curl_code=$(curl -o new-${filename} --insecure -s -w %{http_code} $tsurl)
+  if [ $curl_code != "200" ]; then
+    echo "下载失败: $tsurl"
+    rm -f "new-${filename}"
+    exit
+  fi
+  rm -f json/$filename
+  mv "new-${filename}" json/$filename
+  echo "${filename} 下载完成"
 done
 
 #更新function方法文件
@@ -59,7 +78,7 @@ for FUNC_NAME in ${FUNC_ARR[@]}; do
     START_INDEX=$(echo $(awk -v a="$NEXT_STR" -v b="admin/" 'BEGIN{print index(a,b)}'))
     let START_INDEX+=5
     last_str=${NEXT_STR:START_INDEX:NEXT_LEN}
-    search1_index=$(echo $(awk -v a="$last_str" -v b="\"" 'BEGIN{print index(a,b)}'))
+    search1_index=$(echo $(awk -v a="$last_str" -v b="\`" 'BEGIN{print index(a,b)}'))
     search2_index=$(echo $(awk -v a="$last_str" -v b="/" 'BEGIN{print index(a,b)}'))
     if (($search2_index < $search1_index && $search2_index > 0)); then
       search_index=$search2_index
@@ -72,13 +91,9 @@ for FUNC_NAME in ${FUNC_ARR[@]}; do
       exit
     fi
     target_name=${last_str:0:search_index}
-    # echo $target_name
     if [ -z $target_name ]; then
       continue
     fi
-    # LAST=$(($NEXT_LEN - $START_INDEX))
-    # END_INDEX=$(($LAST - $N))
-    # NAME=${NEXT_STR:START_INDEX:END_INDEX}
     LINE_STR=$(sed -n $(expr ${line}p) $FILENAME)
     firstLetter=${FUNC_NAME:0:1}
     otherLetter=${FUNC_NAME:1}
@@ -88,6 +103,9 @@ for FUNC_NAME in ${FUNC_ARR[@]}; do
     NEW_LINE_STR=$(echo ${LINE_STR/$FUNC_NAME/$NEW_NAME})
     LINE_STR=$(echo $LINE_STR | sed -e 's/[]\/$*.^[]/\\&/g')
     sed -i "" "${line}s/$LINE_STR/$NEW_LINE_STR/" $FILENAME
+    if [ $? -ne 0 ]; then
+      sed -i "${line}s/$LINE_STR/$NEW_LINE_STR/" $FILENAME
+    fi
   done
 done
 
@@ -97,13 +115,19 @@ echo "admin-custom.ts Function name changed successfully"
 ALL_FILES=("admin-custom.ts" "captcha-custom.ts" "luckdraw-custom.ts")
 for filename in "${ALL_FILES[@]}"; do
   STR1=") {"
-  NEWSTR1=", options?: { [key: string]: any }) {"
+  NEWSTR1=", options?: Record<string, any>) {"
   sed -i "" "s/$STR1/$NEWSTR1/" $filename
+  if [ $? -ne 0 ]; then
+    sed -i "s/$STR1/$NEWSTR1/" $filename
+  fi
 
   STR2="(, options?:"
   STR2=$(echo $STR2 | sed -e 's/[]\/$*.^[]/\\&/g')
   NEWSTR2="(options?:"
   sed -i "" "s/$STR2/$NEWSTR2/" $filename
+  if [ $? -ne 0 ]; then
+    sed -i "s/$STR2/$NEWSTR2/" $filename
+  fi
 
   STR3=")"
   NEWSTR3=", options)"
@@ -112,6 +136,9 @@ for filename in "${ALL_FILES[@]}"; do
     OLD_STR=$(echo $OLD_STR | sed -e 's/[]\/$*.^[]/\\&/g')
     NEW_STR=$(echo ${OLD_STR/$STR3/$NEWSTR3})
     sed -i "" "${line}s/$OLD_STR/$NEW_STR/" $filename
+    if [ $? -ne 0 ]; then
+      sed -i "${line}s/$OLD_STR/$NEW_STR/" $filename
+    fi
   done
 done
 echo "admin-custom.ts Function parameter added successfully"

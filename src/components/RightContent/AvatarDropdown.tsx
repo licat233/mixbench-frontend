@@ -7,7 +7,7 @@ import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback, useState } from 'react';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
-import { Adminer, adminerPut, AdminerPutReq, logout, putCurrent, PutCurrentReq } from '@/services/global-api/admin-custom';
+import { Adminer, adminerPut, AdminerPutReq, logout, putCurrent, PutCurrentReq } from '@/services/backend-api/admin-custom';
 import OperationModal from './components/OperationModal';
 import PutPasswordModal from './components/PasswordModal';
 

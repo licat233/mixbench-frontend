@@ -7,7 +7,7 @@ import {
   ProFormDigit,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Activity as BasicListItemDataType, activityPatternEnumList, projectEnumList } from '@/services/global-api/admin-custom';
+import { Activity as BasicListItemDataType, activityPatternEnumList, projectEnumList } from '@/services/backend-api/admin-custom';
 import dayjs from 'dayjs';
 
 type OperationModalProps = {

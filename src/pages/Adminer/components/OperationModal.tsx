@@ -7,7 +7,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Adminer as BasicListItemDataType, uploadAvatar } from '@/services/global-api/admin-custom';
+import { Adminer as BasicListItemDataType, uploadAvatar } from '@/services/backend-api/admin-custom';
 import Upload, { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/lib/upload';
 import { message } from 'antd';
 import { UploadRequestOption } from 'rc-upload/lib/interface';

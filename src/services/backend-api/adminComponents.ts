@@ -54,25 +54,21 @@ export interface BaseResp {
 
 export interface DownloadReq {
 }
-
 export interface DownloadReqParams {
-	file: string
 }
 
 export interface IdReq {
 }
-
 export interface IdReqParams {
 	id: number
 }
 
 export interface BatchIdReq {
-	id: Array<number>
+	id: number[]
 }
 
 export interface ListReq {
 }
-
 export interface ListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -81,7 +77,6 @@ export interface ListReqParams {
 
 export interface SearchReq {
 }
-
 export interface SearchReqParams {
 	keyword: string // 关键词，可选
 	pageSize: number // 页面大小
@@ -118,7 +113,7 @@ export interface Enum {
 export interface TreeOptions {
 	title: string
 	value: number
-	children?: Array<TreeOptions>
+	children?: TreeOptions[]
 }
 
 export interface Activity {
@@ -140,7 +135,6 @@ export interface Activity {
 
 export interface ActivityGetReq {
 }
-
 export interface ActivityGetReqParams {
 	id: number
 }
@@ -175,7 +169,6 @@ export interface ActivityDelReq {
 
 export interface ProjectActivityReq {
 }
-
 export interface ProjectActivityReqParams {
 	project_id: number // 所属项目id，-1表示无限制
 }
@@ -193,17 +186,16 @@ export interface ActivityListReq {
 	max_prizes?: number // 单人最大获奖数：-1表示无限制，0表示不可抽奖
 	start_time?: number // 活动开始时间
 	end_time?: number // 活动结束时间
-	range_time?: Array<string> // 活动结束时间
+	range_time?: string[] // 活动结束时间
 }
 
 export interface ActivityDetail {
 	activity: Activity // 活动信息
-	activity_prizes: Array<ActivityPrize> // 活动奖品列表
+	activity_prizes: ActivityPrize[] // 活动奖品列表
 }
 
 export interface ActivityDetailReq {
 }
-
 export interface ActivityDetailReqParams {
 	id: number // 活动id
 }
@@ -215,14 +207,12 @@ export interface UserActivity {
 
 export interface UserActivitiesReq {
 }
-
 export interface UserActivitiesReqParams {
 	user_id: number // 所属用户id，-1表示无限制
 }
 
 export interface EnumListReq {
 }
-
 export interface EnumListReqParams {
 	project_id: number // 所属项目id，-1表示无限制
 }
@@ -247,7 +237,6 @@ export interface Adminer {
 
 export interface AdminerGetReq {
 }
-
 export interface AdminerGetReqParams {
 	id: number
 }
@@ -282,7 +271,6 @@ export interface AdminerDelReq {
 
 export interface AdminerListReq {
 }
-
 export interface AdminerListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -314,7 +302,6 @@ export interface Lucker {
 
 export interface LuckerGetReq {
 }
-
 export interface LuckerGetReqParams {
 	id: number
 }
@@ -383,7 +370,6 @@ export interface LuckerDetailsReq {
 
 export interface LuckerListReq {
 }
-
 export interface LuckerListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -411,7 +397,6 @@ export interface Prize {
 
 export interface PrizeGetReq {
 }
-
 export interface PrizeGetReqParams {
 	id: number
 }
@@ -443,19 +428,17 @@ export interface ActivityPrize {
 }
 
 export interface ActivityPrizeListData {
-	activity_prize_list: Array<ActivityPrize> // 活动奖品列表
+	activity_prize_list: ActivityPrize[] // 活动奖品列表
 }
 
 export interface ActivityPrizesReq {
 }
-
 export interface ActivityPrizesReqParams {
 	activity_id: number // 所属活动id，-1表示无限制
 }
 
 export interface PrizeListReq {
 }
-
 export interface PrizeListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -478,7 +461,6 @@ export interface PrizeGrade {
 
 export interface PrizeGradeGetReq {
 }
-
 export interface PrizeGradeGetReqParams {
 	id: number
 }
@@ -500,7 +482,6 @@ export interface PrizeGradeDelReq {
 
 export interface PrizeGradeListReq {
 }
-
 export interface PrizeGradeListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -528,7 +509,6 @@ export interface PrizesPool {
 
 export interface PrizesPoolGetReq {
 }
-
 export interface PrizesPoolGetReqParams {
 	id: number
 }
@@ -561,7 +541,6 @@ export interface PrizesPoolDelReq {
 
 export interface PrizesPoolListReq {
 }
-
 export interface PrizesPoolListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -594,7 +573,6 @@ export interface Project {
 
 export interface ProjectGetReq {
 }
-
 export interface ProjectGetReqParams {
 	id: number
 }
@@ -617,7 +595,6 @@ export interface ProjectDelReq {
 
 export interface ProjectListReq {
 }
-
 export interface ProjectListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -629,12 +606,11 @@ export interface ProjectListReqParams {
 
 export interface ProjectDtail {
 	project: Project
-	activities: Array<Activity>
+	activities: Activity[]
 }
 
 export interface ProjectDetailReq {
 }
-
 export interface ProjectDetailReqParams {
 	id: number // 项目id
 }
@@ -647,7 +623,7 @@ export interface PolicyReq {
 }
 
 export interface PoliciesReq {
-	rules: Array<PolicyReq>
+	rules: PolicyReq[]
 }
 
 export interface DomainReq {
@@ -677,7 +653,6 @@ export interface User {
 
 export interface UserGetReq {
 }
-
 export interface UserGetReqParams {
 	id: number
 }
@@ -710,7 +685,6 @@ export interface UserDelReq {
 
 export interface UserListReq {
 }
-
 export interface UserListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
@@ -727,18 +701,17 @@ export interface UserListReqParams {
 
 export interface UserDetailReq {
 }
-
 export interface UserDetailReqParams {
 	id: number
 }
 
 export interface UserDetail {
 	user: User
-	user_activities: Array<UserActivity>
+	user_activities: UserActivity[]
 }
 
 export interface UserDetails {
-	user_details: Array<UserDetail>
+	user_details: UserDetail[]
 }
 
 export interface UsersPool {
@@ -756,7 +729,6 @@ export interface UsersPool {
 
 export interface UsersPoolGetReq {
 }
-
 export interface UsersPoolGetReqParams {
 	id: number
 }
@@ -783,7 +755,6 @@ export interface UsersPoolDelReq {
 
 export interface UsersPoolListReq {
 }
-
 export interface UsersPoolListReqParams {
 	pageSize: number // 页面大小
 	current: number // 当前页码
