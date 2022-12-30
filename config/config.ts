@@ -120,14 +120,6 @@ export default defineConfig({
   openAPI: [
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      // 或者使用在线的版本
-      // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
-      schemaPath: join(__dirname, 'mixbench.openapi.json'),
-      mock: false,
-      projectName: "backend"
-    },
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: 'http://micro.mixbench.net/v1/api/admin/static/swagger.json',
       projectName: 'admin',
     },

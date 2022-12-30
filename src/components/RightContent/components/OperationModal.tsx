@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { FC, useState } from 'react';
 import {
   DrawerForm,
@@ -96,7 +97,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       onFinish={async (values) => {
         const req: PutCurrentReq = {
           name: values.name,
-          avatar: values.avatar,
+          avatar: avatarUrl,
           passport: values.passport,
           email: values.email
         }
