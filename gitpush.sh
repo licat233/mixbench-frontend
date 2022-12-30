@@ -3,7 +3,7 @@
  # @Author: licat
  # @Date: 2022-12-27 15:16:27
  # @LastEditors: licat
- # @LastEditTime: 2022-12-27 22:31:44
+ # @LastEditTime: 2022-12-30 10:30:44
  # @Description: 
 ### 
 
@@ -17,7 +17,7 @@ cd $current_path
 
 git add .
 git commit -m update --no-verify
-git push -u origin main
+git push -u origin master
 
 echo "git push 已完成"
 

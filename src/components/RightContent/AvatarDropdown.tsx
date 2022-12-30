@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { logout, putCurrent, PutCurrentReq } from '@/services/swagger/admin-custom';
 import { LogoutOutlined, SafetyOutlined, SettingOutlined } from '@ant-design/icons';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
