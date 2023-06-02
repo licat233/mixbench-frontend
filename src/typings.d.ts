@@ -45,12 +45,3 @@ interface ResponseStructure {
 	traceId?: string // 【选填】方便后端故障排除：唯一的请求ID
 	host?: string // 【选填】方便后端故障排除：当前访问服务器的主机
 }
-
-// 错误处理方案： 错误类型
-enum ErrorShowType {
-    SILENT = 0,
-    WARN_MESSAGE = 1,
-    ERROR_MESSAGE = 2,
-    NOTIFICATION = 3,
-    REDIRECT = 9,
-}

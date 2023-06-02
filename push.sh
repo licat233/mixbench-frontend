@@ -10,7 +10,7 @@ cd $current_path
 
 git add .
 git commit -m update --no-verify
-git push -u origin master
+git push -u origin v1
 
 echo "git push 已完成"
 

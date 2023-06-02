@@ -7,8 +7,17 @@
  * @Description: 自定义文件
  */
 
-import type { AxiosError } from '@umijs/max';
+import { AxiosError, history } from '@umijs/max';
 import { message, notification } from 'antd';
+
+// 错误处理方案： 错误类型
+enum ErrorShowType {
+  SILENT = 0,
+  WARN_MESSAGE = 1,
+  ERROR_MESSAGE = 2,
+  NOTIFICATION = 3,
+  REDIRECT = 9,
+}
 
 const codeMessage: Record<number,string>= {
   200: '服务器成功返回请求的数据。',
@@ -24,7 +33,7 @@ const codeMessage: Record<number,string>= {
   410: '请求的资源被永久删除，且不会再得到的。',
   422: '当创建一个对象时，发生一个验证错误。',
   500: '服务器发生错误，请检查服务器。',
-  502: '网关错误。',
+  502: '服务器网关错误。',
   503: '服务不可用，服务器暂时过载或维护中...',
   504: '网关超时。',
   0: '未知错误'
@@ -60,6 +69,9 @@ function showError(errorMessage: string | undefined, showType: ErrorShowType | u
       break;
     case ErrorShowType.REDIRECT:
       // TODO: redirect
+      history.replace({
+        pathname: errorMessage||"/",
+      });
       break;
     default:
       message.error(errorMessage);
@@ -81,8 +93,8 @@ function showError(errorMessage: string | undefined, showType: ErrorShowType | u
  * @case 其它未知错误
  */
 function RequestErrorHandler(error: any, opts: any): void {
+  // console.log("错误:"+error)
   if (opts?.skipErrorHandler) throw error;
-  // console.log(error)
   switch (error?.name) {
     //发起请求后产生的非200错误
     case "AxiosError":

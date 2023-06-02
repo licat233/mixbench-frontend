@@ -16,7 +16,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { history, useModel } from '@umijs/max';
-import { Alert, message, Tabs, Modal, Space } from 'antd';
+import { Alert, Tabs, Modal, Space, message } from 'antd';
 import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import { useForm } from 'antd/lib/form/Form';
@@ -39,6 +39,7 @@ const LoginMessage: React.FC<{
 };
 
 const Login: React.FC = () => {
+  // const { message } = App.useApp();
   const [userLoginState, setUserLoginState] = useState<Record<string, string | boolean>>({ status: false, type: 'account' });
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -75,7 +76,7 @@ const Login: React.FC = () => {
     try {
       const result = await mathCaptcha(captchaParams);
       setImgCaptcha((result as API.BaseResp).data as CaptchaInfo);
-    } catch (error) {
+    } catch (err) {
       message.error('获取验证码失败！');
     }
   };
@@ -134,6 +135,7 @@ const Login: React.FC = () => {
       // console.log(msg); // 如果失败去设置用户错误信息
       setUserLoginState({ status: msg.success, type: type });
     } catch (error) {
+      // message.error("登录失败！")
       getCaptchaImage();
     }
   };
@@ -227,7 +229,7 @@ const Login: React.FC = () => {
           initialValues={{
             autoLogin: true,
             passport: 'licat',
-            password: 'licat233',
+            password: 'Abcd12345',
             email: "1697470538@qq.com",
           }}
           actions={[]}
@@ -287,8 +289,8 @@ const Login: React.FC = () => {
                     message: '密码是必填项！',
                   },
                   {
-                    pattern: /^.{6,34}$/,
-                    message: '密码长度有误',
+                    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,64}$/,
+                    message: '必须包含至少一个大写字母、一个小写字母和一个数字，至少8~64位',
                   },
                 ]}
               />
@@ -300,9 +302,14 @@ const Login: React.FC = () => {
                     fieldProps={{
                       size: 'large',
                       prefix: <SafetyCertificateOutlined className={styles.prefixIcon} />,
+                      type: "Number",
+                      onInput: (_e) => {
+                        const val = _e.currentTarget.value;
+                        verifyInputMatchVal(val)
+                      }
                     }}
                     allowClear={true}
-                    width="xs"
+                    width="sm"
                     placeholder="验证码"
                     rules={[
                       {

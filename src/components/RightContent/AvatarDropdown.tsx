@@ -11,13 +11,18 @@ import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 import OperationModal from './components/OperationModal';
 import PutPasswordModal from './components/PasswordModal';
-import { useModel } from '@umijs/max';
+import { history, useModel } from '@umijs/max';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
+  children?: React.ReactNode;
 };
 
-
+export const AvatarName = () => {
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  return <span className="anticon">{currentUser?.name}</span>;
+};
 
 const handleUpdate = async (req: PutCurrentReq) => {
   const hide = message.loading('更新中...');
@@ -66,7 +71,7 @@ const loginOut = async () => {
   }
 };
 
-const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [pwdModalVisible, setPwdModalVisible] = useState(false);

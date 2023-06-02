@@ -27,9 +27,6 @@ type OperationModalProps = {
 
 const OperationModal: FC<OperationModalProps> = (props) => {
   const { done, open, details, onDone, onSubmit } = props;
-  if (!open) {
-    return null;
-  }
 
   /**
    * 先选择项目，获取活动
@@ -137,6 +134,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     activityId: details?.activity?.id,
     prizeId: details?.prize?.id,
     prizeGrade: details?.prizeGrade?.id,
+    userId: details?.user?.id,
     ...details?.lucky,
   }
 

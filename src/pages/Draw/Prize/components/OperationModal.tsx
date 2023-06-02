@@ -10,9 +10,10 @@ import {
 import styles from '../style.less';
 import { Prize as BasicListItemDataType } from '@/services/swagger/luckydraw';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { message, UploadProps, UploadFile, Upload } from 'antd';
+import { UploadProps, UploadFile, Upload } from 'antd';
 import { RcFile, UploadChangeParam } from 'antd/lib/upload';
 import { uploadImg } from '@/services/swagger/admin';
+import { App } from 'antd';
 
 type OperationModalProps = {
   done: boolean;
@@ -29,6 +30,7 @@ const getBase64 = (img: RcFile, callback: (url: string) => void) => {
 };
 
 const beforeUpload = (file: RcFile) => {
+  const { message } = App.useApp();
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
     message.error('You can only upload JPG/PNG file!');

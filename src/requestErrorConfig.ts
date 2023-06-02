@@ -7,9 +7,9 @@
  */
 import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import { message } from 'antd';
 
 import RequestErrorHandler from './requestErrorHandler';
+import { message } from 'antd';
 
 
 
@@ -23,20 +23,21 @@ export const errorConfig: RequestConfig = {
   errorConfig: {
     // 错误抛出
     errorThrower: (res) => {
-      const { success, data, errorCode, errorMessage, showType, traceMessage } =
+      const { success, status, data, errorCode, errorMessage, showType, traceMessage } =
         res as unknown as ResponseStructure;
       if (!success) {
         const error: any = new Error(errorMessage || "request failed");
         error.name = 'BizError';
-        error.info = { success, errorCode, errorMessage, showType, data, traceMessage };
+        const info: API.BaseResp = {
+          success, errorCode, errorMessage, showType, data, traceMessage,
+          status: status
+        };
+        error.info = info;
         throw error; // 抛出自制的错误
       }
     },
     // 错误接收及处理
-    errorHandler: (error: any, opts: any) => {
-      // if (opts?.skipErrorHandler) throw error;
-      RequestErrorHandler(error, opts);
-    },
+    errorHandler: RequestErrorHandler,
   },
 
   // 请求拦截器
@@ -64,10 +65,7 @@ export const errorConfig: RequestConfig = {
   // 响应拦截器
   responseInterceptors: [
     (response) => {
-      // 拦截响应数据，进行个性化处理
-      const { data } = response as unknown as ResponseStructure;
-
-      if (data?.success === false) {
+      if (response.status !== 200) {
         message.error('请求失败！');
       }
       return response;

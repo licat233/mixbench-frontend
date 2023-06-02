@@ -1,4 +1,4 @@
-import Footer from '@/components/Footer';
+import { Footer, AvatarDropdown, AvatarName } from '@/components';
 import RightContent from '@/components/RightContent';
 import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
@@ -45,12 +45,12 @@ export async function getInitialState(): Promise<{
     return {
       fetchUserInfo,
       currentUser,
-      settings: defaultSettings,
+      settings: defaultSettings as Partial<LayoutSettings>,
     };
   }
   return {
     fetchUserInfo,
-    settings: defaultSettings,
+    settings: defaultSettings as Partial<LayoutSettings>,
   };
 }
 
@@ -58,6 +58,13 @@ export async function getInitialState(): Promise<{
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     rightContentRender: () => <RightContent />,
+    avatarProps: {
+      src: initialState?.currentUser?.avatar,
+      title: <AvatarName />,
+      render: (_, avatarChildren) => {
+        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+      },
+    },
     waterMarkProps: {
       content: initialState?.currentUser?.name,
     },
