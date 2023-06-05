@@ -10,6 +10,13 @@ export function auth(options?: Record<string, any>) {
 }
 
 /**
+ * @description "superAdmin鉴权接口"
+ */
+export function superAdminAuth(options?: Record<string, any>) {
+	return webapi.get<null>(`/v1/api/admin/superAdminAuth`, null, options)
+}
+
+/**
  * @description "登录"
  * @param req
  */
@@ -55,6 +62,22 @@ export function bindEmailCaptcha(req: components.BindEmailCaptchaReq, options?: 
  */
 export function test(params: components.TestReqParams, options?: Record<string, any>) {
 	return webapi.get<components.BaseResp>(`/v1/api/admin/test`, params, options)
+}
+
+/**
+ * @description "密码加密端口"
+ * @param params
+ */
+export function pwdEncryption(params: components.PwdEncryptionReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/pwdEncryption`, params, options)
+}
+
+/**
+ * @description "密码比较端口"
+ * @param params
+ */
+export function pwdCompare(params: components.PwdCompareReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/pwdCompare`, params, options)
 }
 
 /**
@@ -148,6 +171,14 @@ export function currentInfo(options?: Record<string, any>) {
  */
 export function putPassword(req: components.PutPasswordReq, options?: Record<string, any>) {
 	return webapi.post<components.BaseResp>(`/v1/api/admin/adminer/putPassword`, req, options)
+}
+
+/**
+ * @description "忘记密码，通过邮箱重置密码"
+ * @param req
+ */
+export function forgotPassword(req: components.ForgotPasswordReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/admin/adminer/forgotPassword`, req, options)
 }
 
 /**

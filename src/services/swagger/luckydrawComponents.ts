@@ -86,6 +86,10 @@ export interface UserIdentifyReq {
 	passport: string // 凭证
 }
 
+export interface ActivityPrizesReq {
+	activityUuid: string // 活动uuid，用于校验，id是否正确
+}
+
 export interface GetALuckyListReq {
 	activityUuid: string // 活动uuid
 	pageSize: number // 页面大小
@@ -182,15 +186,21 @@ export interface GetActivityEnumsReq {
 }
 
 export interface ActivityDetailReq {
+}
+export interface ActivityDetailReqParams {
 	id: number // 活动id
 }
 
 export interface ProjectActivitiesReq {
-	projectId?: number // 所属项目id，-1表示无限制
+}
+export interface ProjectActivitiesReqParams {
+	projectId: number // 所属项目id，-1表示无限制
 }
 
 export interface UserActivitiesReq {
-	userId?: number // 所属用户id，-1表示无限制
+}
+export interface UserActivitiesReqParams {
+	userId: number // 所属用户id，-1表示无限制
 }
 
 export interface ActivityDetail {
@@ -362,7 +372,8 @@ export interface ActivityPrize {
 }
 
 export interface GetActivityPrizesReq {
-	activityId: number
+	activityUuid: string // 活动uuid，备用
+	activityId: number // 活动id。 当前方案
 }
 
 export interface PrizeGrade {

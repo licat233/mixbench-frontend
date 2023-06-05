@@ -11,6 +11,14 @@ export function userIdentify(req: components.UserIdentifyReq, options?: Record<s
 }
 
 /**
+ * @description "获取活动奖品列表"
+ * @param req
+ */
+export function activityPrizes(req: components.ActivityPrizesReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/luckydraw/activityPrizes`, req, options)
+}
+
+/**
  * @description '预留的调试端口'
  * @param params
  */
@@ -100,10 +108,10 @@ export function getActivityEnums(req: components.GetActivityEnumsReq, options?: 
 
 /**
  * @description 
- * @param req
+ * @param params
  */
-export function activityDetail(req: components.ActivityDetailReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/activity/detail`, req, options)
+export function activityDetail(params: components.ActivityDetailReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/activity/detail`, params, options)
 }
 
 /**
@@ -116,18 +124,18 @@ export function activityDetails(params: components.GetActivityListReqParams, opt
 
 /**
  * @description "指定项目的活动"
- * @param req
+ * @param params
  */
-export function projectActivities(req: components.ProjectActivitiesReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/activity/projectActivities`, req, options)
+export function projectActivities(params: components.ProjectActivitiesReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/activity/projectActivities`, params, options)
 }
 
 /**
  * @description "获取某用户参与的活动"
- * @param req
+ * @param params
  */
-export function userActivities(req: components.UserActivitiesReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/activity/userActivities`, req, options)
+export function userActivities(params: components.UserActivitiesReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/activity/userActivities`, params, options)
 }
 
 /**
@@ -250,11 +258,11 @@ export function getPrizeEnums(req: components.GetPrizeEnumsReq, options?: Record
 }
 
 /**
- * @description "获取活动奖品列表"
+ * @description "获取活动的奖品"
  * @param req
  */
 export function getActivityPrizes(req: components.GetActivityPrizesReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/luckydraw/prize/activityPrizes`, req, options)
+	return webapi.get<components.BaseResp>(`/v1/api/luckydraw/prize/activityPrizes`, req, options)
 }
 
 /**
