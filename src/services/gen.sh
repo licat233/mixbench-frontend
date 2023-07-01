@@ -47,7 +47,7 @@ replace_file_string() {
   FILENAME="$1"
   # 读取第二个参数作为要替换的字符串
   OLD_STR="$2"
-  # 读取第三个参数作为要替换为的新字符串
+  # 读取第三个参数作为要替换为的新字符串，默认为空字符串
   NEW_STR="$3"
   # 表示要修改第几行，默认全部替换
   LINE="$4"
@@ -56,7 +56,7 @@ replace_file_string() {
   fi
 
   # 对于没有指定文件名或原始字符串或新字符串的情况，直接返回错误码
-  if [ -z "$FILENAME" ] || [ -z "$OLD_STR" ] || [ -z "$NEW_STR" ]; then
+  if [ -z "$FILENAME" ] || [ -z "$OLD_STR" ]; then
     return 1
   fi
 
