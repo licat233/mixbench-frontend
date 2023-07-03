@@ -96,24 +96,47 @@ replace_file_string() {
   return 0
 }
 
+func_download_swaggerjson() {
+  service_name=$1
+  filename="${service_name}_swagger.json"
+  file_url="${domain}/v1/static/${service_name}/swagger.json"
+  echo $file_url
+  curl_code=$(curl -o new-${filename} --insecure -s -w %{http_code} $file_url)
+  if [ $curl_code != "200" ]; then
+    echo "下载失败: $file_url"
+    rm -f "new-${filename}"
+    exit
+  fi
+  rm -f $filename
+  mv "new-${filename}" $filename
+  echo "${filename}文件 —— 下载完成"
+}
+
+func_download_file() {
+  name=$1
+  f=$2
+  filename=$(replace_string $f "__" $name)
+  tsurl="${domain}/v1/static/${name}/${filename}"
+  curl_code=$(curl -o new-${filename} --insecure -s -w %{http_code} $tsurl)
+  if [ $curl_code != "200" ]; then
+    echo "下载失败: $tsurl"
+    rm -f "new-${filename}"
+    exit
+  fi
+  rm -f $filename
+  mv "new-${filename}" $filename
+  echo "${filename}文件 —— 下载完成"
+}
+
 # 更新Components.ts接口文件与swagger.json网关文件
 names=("admin" "captcha" "luckydraw")
 files=("__Components.ts" "__.ts")
-func_download_file() {
+func_download_all_file() {
   hasWebapi=true
   for name in ${names[@]}; do
+    func_download_swaggerjson $name
     for f in ${files[@]}; do
-      filename=$(replace_string $f "__" $name)
-      tsurl="${domain}/v1/static/${name}/${filename}"
-      curl_code=$(curl -o new-${filename} --insecure -s -w %{http_code} $tsurl)
-      if [ $curl_code != "200" ]; then
-        echo "下载失败: $tsurl"
-        rm -f "new-${filename}"
-        exit
-      fi
-      rm -f $filename
-      mv "new-${filename}" $filename
-      echo "${filename}文件 —— 下载完成"
+      func_download_file $name $f
     done
   done
 }
@@ -157,7 +180,7 @@ func_add_options() {
   echo "api function parameter added successfully"
 }
 
-func_download_file
+func_download_all_file
 
 func_modify_webapi
 

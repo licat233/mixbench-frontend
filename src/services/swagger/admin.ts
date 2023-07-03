@@ -1,5 +1,5 @@
 import webapi from "./webapi"
-import * as components from "./adminComponents"
+import type * as components from "./adminComponents"
 export * from "./adminComponents"
 
 /**
