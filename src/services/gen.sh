@@ -129,7 +129,7 @@ func_download_file() {
 }
 
 # 更新Components.ts接口文件与swagger.json网关文件
-names=("admin" "captcha" "luckydraw")
+names=("admin" "captcha" "luckydraw" "chat")
 files=("__Components.ts" "__.ts")
 func_download_all_file() {
   hasWebapi=true
