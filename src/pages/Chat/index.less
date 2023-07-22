@@ -1,0 +1,46 @@
+.navbar {
+  min-height: 36px;
+  max-height: 36px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.chatContainer {
+  min-height: calc(100vh - 200px);
+  border: 1px solid #CCCCCC;
+  flex-grow: 1;
+
+  .chatFriendContainer {
+    background-color: ghostwhite;
+    border-right: 1px solid #CCCCCC;
+  }
+
+  .chatWindowContainer {
+    background-color: #FFFFFF;
+
+    .chatRecordContainer {
+      background-color: aliceblue;
+      border-right: 1px solid #CCCCCC;
+
+      .messageList {
+        min-height: calc(100% - 36px);
+        box-shadow: inset 1px 1px 4px 0px grey;
+        background-color: aliceblue;
+      }
+
+      .chatInput {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid #CCCCCC;
+
+        .sendBtn {
+          background-color: #4CAF50;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .friendDetail {}
+  }
+}

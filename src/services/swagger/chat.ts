@@ -4,18 +4,9 @@ export * from "./chatComponents"
 
 /**
  * @description "游客登录"
- * @param req
  */
-export function visitorLogin(req: components.VisitorLoginReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/chat/visitorLogin`, req, options)
-}
-
-/**
- * @description "客服登录"
- * @param req
- */
-export function kefuLogin(req: components.KefuLoginReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/chat/kefuLogin`, req, options)
+export function visitorLogin(options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/chat/public/visitorLogin`, null, options)
 }
 
 /**
@@ -23,14 +14,30 @@ export function kefuLogin(req: components.KefuLoginReq, options?: Record<string,
  * @param req
  */
 export function test(req: components.TestReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/test`, req, options)
+	return webapi.get<components.BaseResp>(`/v1/api/chat/public/test`, req, options)
+}
+
+/**
+ * @description "visitor游客获取自己的聊天记录"
+ */
+export function visitorMessages(options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/chat/public/visitor/messages`, null, options)
 }
 
 /**
  * @description "visitor建立ws连接"
+ * @param params
  */
-export function visitorServer(options?: Record<string, any>) {
-	return webapi.get<null>(`/v1/api/chat/wsVisitor`, null, options)
+export function visitorServer(params: components.ConnWebsocketReqParams, options?: Record<string, any>) {
+	return webapi.get<null>(`/v1/api/chat/public/ws/visitor`, params, options)
+}
+
+/**
+ * @description "kefu建立ws连接"
+ * @param params
+ */
+export function kefuServer(params: components.ConnWebsocketReqParams, options?: Record<string, any>) {
+	return webapi.get<null>(`/v1/api/chat/public/ws/kefu`, params, options)
 }
 
 /**
@@ -50,158 +57,39 @@ export function visitorList(params: components.VisitorListReqParams, options?: R
 }
 
 /**
- * @description "kefu建立ws连接"
- */
-export function kefuServer(options?: Record<string, any>) {
-	return webapi.get<null>(`/v1/api/chat/wsKefu`, null, options)
-}
-
-/**
- * @description "添加游客 基础API"
+ * @description "将游客转接给其他客服"
  * @param req
  */
-export function addVisitor(req: components.AddVisitorReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+export function transferVisitor(req: components.TransferVisitorReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/chat/transferVisitor`, req, options)
 }
 
 /**
- * @description "更新游客 基础API"
+ * @description "获取某个游客的最后一条消息"
  * @param req
  */
-export function putVisitor(req: components.PutVisitorReq, options?: Record<string, any>) {
-	return webapi.put<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+export function visitorLastMessage(req: components.VisitorLastMessageReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/chat/visitorLastMessage`, req, options)
 }
 
 /**
- * @description "获取游客 基础API"
+ * @description "获取某个游客的全部消息"
  * @param req
  */
-export function getVisitor(req: components.GetVisitorReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+export function getVisitorMessages(req: components.GetVisitorMessagesReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/chat/visitorMessages`, req, options)
 }
 
 /**
- * @description "删除游客 基础API"
+ * @description "更改某个游客的备注"
  * @param req
  */
-export function delVisitor(req: components.DelVisitorReq, options?: Record<string, any>) {
-	return webapi.delete<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+export function putVisitorComment(req: components.PutVisitorCommentReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/chat/putVisitorComment`, req, options)
 }
 
 /**
- * @description "获取游客列表 基础API"
- * @param params
- */
-export function getVisitorList(params: components.GetVisitorListReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/visitor/list`, params, options)
-}
-
-/**
- * @description "获取游客枚举列表 基础API"
- * @param req
- */
-export function getVisitorEnums(req: components.GetVisitorEnumsReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/visitor/enums`, req, options)
-}
-
-/**
- * @description "添加客服 基础API"
- * @param req
- */
-export function addKefu(req: components.AddKefuReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/chat/kefu`, req, options)
-}
-
-/**
- * @description "更新客服 基础API"
- * @param req
- */
-export function putKefu(req: components.PutKefuReq, options?: Record<string, any>) {
-	return webapi.put<components.BaseResp>(`/v1/api/chat/kefu`, req, options)
-}
-
-/**
- * @description "获取客服 基础API"
- * @param req
- */
-export function getKefu(req: components.GetKefuReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/kefu`, req, options)
-}
-
-/**
- * @description "删除客服 基础API"
- * @param req
- */
-export function delKefu(req: components.DelKefuReq, options?: Record<string, any>) {
-	return webapi.delete<components.BaseResp>(`/v1/api/chat/kefu`, req, options)
-}
-
-/**
- * @description "获取客服列表 基础API"
- * @param params
- */
-export function getKefuList(params: components.GetKefuListReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/kefu/list`, params, options)
-}
-
-/**
- * @description "获取客服枚举列表 基础API"
- * @param req
- */
-export function getKefuEnums(req: components.GetKefuEnumsReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/kefu/enums`, req, options)
-}
-
-/**
- * @description "添加聊天记录 基础API"
- * @param req
- */
-export function addChatRecord(req: components.AddChatRecordReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/chat/chatRecord`, req, options)
-}
-
-/**
- * @description "更新聊天记录 基础API"
- * @param req
- */
-export function putChatRecord(req: components.PutChatRecordReq, options?: Record<string, any>) {
-	return webapi.put<components.BaseResp>(`/v1/api/chat/chatRecord`, req, options)
-}
-
-/**
- * @description "获取聊天记录 基础API"
- * @param req
- */
-export function getChatRecord(req: components.GetChatRecordReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/chatRecord`, req, options)
-}
-
-/**
- * @description "删除聊天记录 基础API"
- * @param req
- */
-export function delChatRecord(req: components.DelChatRecordReq, options?: Record<string, any>) {
-	return webapi.delete<components.BaseResp>(`/v1/api/chat/chatRecord`, req, options)
-}
-
-/**
- * @description "获取聊天记录列表 基础API"
- * @param params
- */
-export function getChatRecordList(params: components.GetChatRecordListReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/chatRecord/list`, params, options)
-}
-
-/**
- * @description "获取聊天记录枚举列表 基础API"
- * @param req
- */
-export function getChatRecordEnums(req: components.GetChatRecordEnumsReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/chatRecord/enums`, req, options)
-}
-
-/**
- * @description "添加消息, 主要用于缓存未发送成功的消息 基础API"
+ * @description "添加消息 基础API"
  * @param req
  */
 export function addMessage(req: components.AddMessageReq, options?: Record<string, any>) {
@@ -209,7 +97,7 @@ export function addMessage(req: components.AddMessageReq, options?: Record<strin
 }
 
 /**
- * @description "更新消息, 主要用于缓存未发送成功的消息 基础API"
+ * @description "更新消息 基础API"
  * @param req
  */
 export function putMessage(req: components.PutMessageReq, options?: Record<string, any>) {
@@ -217,7 +105,7 @@ export function putMessage(req: components.PutMessageReq, options?: Record<strin
 }
 
 /**
- * @description "获取消息, 主要用于缓存未发送成功的消息 基础API"
+ * @description "获取消息 基础API"
  * @param req
  */
 export function getMessage(req: components.GetMessageReq, options?: Record<string, any>) {
@@ -225,7 +113,7 @@ export function getMessage(req: components.GetMessageReq, options?: Record<strin
 }
 
 /**
- * @description "删除消息, 主要用于缓存未发送成功的消息 基础API"
+ * @description "删除消息 基础API"
  * @param req
  */
 export function delMessage(req: components.DelMessageReq, options?: Record<string, any>) {
@@ -233,7 +121,7 @@ export function delMessage(req: components.DelMessageReq, options?: Record<strin
 }
 
 /**
- * @description "获取消息, 主要用于缓存未发送成功的消息列表 基础API"
+ * @description "获取消息列表 基础API"
  * @param params
  */
 export function getMessageList(params: components.GetMessageListReqParams, options?: Record<string, any>) {
@@ -241,59 +129,11 @@ export function getMessageList(params: components.GetMessageListReqParams, optio
 }
 
 /**
- * @description "获取消息, 主要用于缓存未发送成功的消息枚举列表 基础API"
+ * @description "获取消息枚举列表 基础API"
  * @param req
  */
 export function getMessageEnums(req: components.GetMessageEnumsReq, options?: Record<string, any>) {
 	return webapi.get<components.BaseResp>(`/v1/api/chat/message/enums`, req, options)
-}
-
-/**
- * @description "添加IP黑名单 基础API"
- * @param req
- */
-export function addIpblack(req: components.AddIpblackReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/chat/ipblack`, req, options)
-}
-
-/**
- * @description "更新IP黑名单 基础API"
- * @param req
- */
-export function putIpblack(req: components.PutIpblackReq, options?: Record<string, any>) {
-	return webapi.put<components.BaseResp>(`/v1/api/chat/ipblack`, req, options)
-}
-
-/**
- * @description "获取IP黑名单 基础API"
- * @param req
- */
-export function getIpblack(req: components.GetIpblackReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/ipblack`, req, options)
-}
-
-/**
- * @description "删除IP黑名单 基础API"
- * @param req
- */
-export function delIpblack(req: components.DelIpblackReq, options?: Record<string, any>) {
-	return webapi.delete<components.BaseResp>(`/v1/api/chat/ipblack`, req, options)
-}
-
-/**
- * @description "获取IP黑名单列表 基础API"
- * @param params
- */
-export function getIpblackList(params: components.GetIpblackListReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/ipblack/list`, params, options)
-}
-
-/**
- * @description "获取IP黑名单枚举列表 基础API"
- * @param req
- */
-export function getIpblackEnums(req: components.GetIpblackEnumsReq, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/chat/ipblack/enums`, req, options)
 }
 
 /**
@@ -342,4 +182,52 @@ export function getMessageConfigList(params: components.GetMessageConfigListReqP
  */
 export function getMessageConfigEnums(req: components.GetMessageConfigEnumsReq, options?: Record<string, any>) {
 	return webapi.get<components.BaseResp>(`/v1/api/chat/messageConfig/enums`, req, options)
+}
+
+/**
+ * @description "添加游客 基础API"
+ * @param req
+ */
+export function addVisitor(req: components.AddVisitorReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+}
+
+/**
+ * @description "更新游客 基础API"
+ * @param req
+ */
+export function putVisitor(req: components.PutVisitorReq, options?: Record<string, any>) {
+	return webapi.put<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+}
+
+/**
+ * @description "获取游客 基础API"
+ * @param req
+ */
+export function getVisitor(req: components.GetVisitorReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+}
+
+/**
+ * @description "删除游客 基础API"
+ * @param req
+ */
+export function delVisitor(req: components.DelVisitorReq, options?: Record<string, any>) {
+	return webapi.delete<components.BaseResp>(`/v1/api/chat/visitor`, req, options)
+}
+
+/**
+ * @description "获取游客列表 基础API"
+ * @param params
+ */
+export function getVisitorList(params: components.GetVisitorListReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/chat/visitor/list`, params, options)
+}
+
+/**
+ * @description "获取游客枚举列表 基础API"
+ * @param req
+ */
+export function getVisitorEnums(req: components.GetVisitorEnumsReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/chat/visitor/enums`, req, options)
 }

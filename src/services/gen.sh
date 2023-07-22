@@ -10,7 +10,9 @@ current_path=$(
   pwd
 )
 
-cd "${current_path}/swagger"
+save_dir="swagger"
+
+cd "${current_path}/${save_dir}"
 
 replace_string() {
   # 读取第一个参数作为原始字符串
@@ -100,7 +102,7 @@ func_download_swaggerjson() {
   service_name=$1
   filename="${service_name}_swagger.json"
   file_url="${domain}/v1/static/${service_name}/swagger.json"
-  echo $file_url
+  # echo $file_url
   curl_code=$(curl -o new-${filename} --insecure -s -w %{http_code} $file_url)
   if [ $curl_code != "200" ]; then
     echo "下载失败: $file_url"
@@ -129,7 +131,7 @@ func_download_file() {
 }
 
 # 更新Components.ts接口文件与swagger.json网关文件
-names=("admin" "captcha" "luckydraw" "chat")
+names=("admin" "authentication" "luckydraw" "chat")
 files=("__Components.ts" "__.ts")
 func_download_all_file() {
   hasWebapi=true

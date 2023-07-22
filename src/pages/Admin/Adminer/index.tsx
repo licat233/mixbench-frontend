@@ -246,14 +246,14 @@ const AdminerList: React.FC = () => {
     {
       title: '上次登录时间',
       sorter: true,
-      dataIndex: 'lastLogin',
+      dataIndex: 'lastLoginAt',
       valueType: 'dateTime',
       hideInForm: true,
       render: (_, record) => {
-        if (!record.lastLogin) {
+        if (!record.lastLoginAt) {
           return "数据异常"
         }
-        return dayjs(record.lastLogin * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return dayjs(record.lastLoginAt * 1000).format('YYYY-MM-DD HH:mm:ss');
       },
     },
     {

@@ -8,7 +8,7 @@
 import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
 
-import RequestErrorHandler from './requestErrorHandler';
+import { RequestErrorHandler } from './requestErrorHandler';
 import { message } from 'antd';
 
 
@@ -23,17 +23,17 @@ export const errorConfig: RequestConfig = {
   errorConfig: {
     // 错误抛出
     errorThrower: (res) => {
-      const { success, status, data, errorCode, errorMessage, showType, traceMessage } =
+      const { success, status, errorCode, errorMessage, showType, traceMessage } =
         res as unknown as ResponseStructure;
       if (!success) {
-        const error: any = new Error(errorMessage || "request failed");
-        error.name = 'BizError';
+        const err: any = new Error(errorMessage || "request failed");
+        err.name = 'BizError';
         const info: API.BaseResp = {
-          success, errorCode, errorMessage, showType, data, traceMessage,
-          status: status
+          success, errorCode, errorMessage, showType, traceMessage, status
         };
-        error.info = info;
-        throw error; // 抛出自制的错误
+        err.info = info;
+        RequestErrorHandler(err, null)
+        // throw err; // 抛出自制的错误
       }
     },
     // 错误接收及处理

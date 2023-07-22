@@ -16,6 +16,7 @@ export default [
       { icon: 'container', name: "奖单", path: 'lucky', component: './Draw/Lucky' },
     ],
   },
+  { path: '/chat', name: '聊天', icon: 'MessageOutlined', component: './Chat' },
   { path: '/', layout: false, redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];

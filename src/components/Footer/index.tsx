@@ -2,9 +2,15 @@ import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-components';
 import '@umijs/max';
 
+import { useLocation } from 'react-router-dom';
+
 const Footer: React.FC = () => {
   const defaultMessage = 'licat';
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  if (location.pathname.includes("/chat")){
+    return null;
+  }
   return (
     <DefaultFooter
       style={{

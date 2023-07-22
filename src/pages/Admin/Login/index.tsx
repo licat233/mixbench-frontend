@@ -1,8 +1,8 @@
 import Footer from '@/components/Footer';
 import { login, loginByEmail, loginEmailCaptcha } from '@/services/swagger/admin';
 import type { LoginReq, LoginByEmailReq } from '@/services/swagger/adminComponents';
-import type { CaptchaInfo, CaptchaReq, EmailCaptchaResp } from '@/services/swagger/captchaComponents';
-import { mathCaptcha } from '@/services/swagger/captcha';
+import type { CaptchaInfo, CaptchaReq, EmailCaptchaResp } from '@/services/swagger/authenticationComponents';
+import { getMathCaptcha } from '@/services/swagger/authentication';
 import {
   LockOutlined,
   MailOutlined,
@@ -43,8 +43,8 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<Record<string, string | boolean>>({ status: false, type: 'account' });
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
-  const [imgCaptcha, setImgCaptcha] = useState<CaptchaInfo>({ captcha_id: "", base64_image: "" });
-  const [emailCaptchaInfo, setEmailCaptchaInfo] = useState<EmailCaptchaResp>({ captcha_id: "", expires_at: 0 });
+  const [imgCaptcha, setImgCaptcha] = useState<CaptchaInfo>({ captchaId: "", base64Image: "" });
+  const [emailCaptchaInfo, setEmailCaptchaInfo] = useState<EmailCaptchaResp>({ captchaId: "", expiresAt: 0 });
   const [form] = useForm()
   const [emailCaptchaInputState, setEmailCaptchaInputState] = useState(true); //默认为禁用状态
 
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
   const getCaptchaImage = async () => {
     if (userLoginState.status) return;
     try {
-      const result = await mathCaptcha(captchaParams);
+      const result = await getMathCaptcha(captchaParams);
       setImgCaptcha((result as API.BaseResp).data as CaptchaInfo);
     } catch (err) {
       message.error('获取验证码失败！');
@@ -94,11 +94,11 @@ const Login: React.FC = () => {
   });
 
   useEffect(() => {
-    if (imgCaptcha.base64_image === "") {
+    if (imgCaptcha.base64Image === "") {
       getCaptchaImage();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgCaptcha.base64_image]);
+  }, [imgCaptcha.base64Image]);
 
   const handleSubmit = async (values: Record<string, unknown>) => {
     try {
@@ -110,8 +110,8 @@ const Login: React.FC = () => {
         // 登录
         const req: LoginByEmailReq = {
           email: values.email as string,
-          captcha_id: values.captcha_id as string,
-          solution: values.email_solution as string,
+          captchaId: values.captchaId as string,
+          solution: values.emailSolution as string,
           autoLogin: values.autoLogin as boolean
         }
         resp = await loginByEmail({ ...req });
@@ -185,7 +185,7 @@ const Login: React.FC = () => {
       }}
 
       allowClear={true}
-      name="email_solution"
+      name="emailSolution"
       rules={[
         {
           required: true,
@@ -203,7 +203,7 @@ const Login: React.FC = () => {
         try {
           const result = await loginEmailCaptcha({
             email,
-            captcha_id: imgCaptcha.captcha_id,
+            captchaId: imgCaptcha.captchaId,
             solution
           });
           setEmailCaptchaInfo(result.data as EmailCaptchaResp)
@@ -234,8 +234,8 @@ const Login: React.FC = () => {
           }}
           actions={[]}
           onFinish={async (values) => {
-            const captcha_id = type === "account" ? imgCaptcha.captcha_id : emailCaptchaInfo.captcha_id
-            await handleSubmit({ ...values, captcha_id });
+            const captchaId = type === "account" ? imgCaptcha.captchaId : emailCaptchaInfo.captchaId
+            await handleSubmit({ ...values, captchaId });
           }}
         >
           <Tabs
@@ -297,7 +297,7 @@ const Login: React.FC = () => {
               <Space.Compact className={styles.captchagrounp}>
                 <div className={styles.captchainput}>
                   <ProFormText
-                    key="account_solution"
+                    key="accountSolution"
                     name="solution"
                     fieldProps={{
                       size: 'large',
@@ -323,8 +323,8 @@ const Login: React.FC = () => {
                     ]}
                   />
                 </div>
-                <div className={styles.captchaimg} key="account_captchaImag" onClick={getCaptchaImage}>
-                  <img src={imgCaptcha?.base64_image || ''} />
+                <div className={styles.captchaimg} key="accountCaptchaImag" onClick={getCaptchaImage}>
+                  <img src={imgCaptcha?.base64Image || ''} />
                 </div>
               </Space.Compact>
             </>
@@ -354,7 +354,7 @@ const Login: React.FC = () => {
               <Space.Compact className={styles.captchagrounp}>
                 <div className={styles.captchainput}>
                   <ProFormText
-                    key="email_solution"
+                    key="emailSolution"
                     name="solution"
                     // min={-100}
                     fieldProps={{
@@ -383,7 +383,7 @@ const Login: React.FC = () => {
                   />
                 </div>
                 <div className={styles.captchaimg} key="email_captchaImag" onClick={getCaptchaImage}>
-                  <img src={imgCaptcha?.base64_image || ''} />
+                  <img src={imgCaptcha?.base64Image || ''} />
                 </div>
               </Space.Compact>
               {emailInputView()}

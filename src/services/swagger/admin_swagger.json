@@ -37,7 +37,6 @@
             "format": "int64"
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -64,7 +63,6 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -91,7 +89,6 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -118,7 +115,6 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -136,7 +132,6 @@
             }
           }
         },
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -165,7 +160,6 @@
             "default": "-1"
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -193,7 +187,6 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -323,6 +316,24 @@
             "default": "-1"
           },
           {
+            "name": "companyId",
+            "description": "公司id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "projectId",
+            "description": "项目id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
             "name": "loginCount",
             "description": "登录次数",
             "in": "query",
@@ -332,16 +343,15 @@
             "default": "-1"
           },
           {
-            "name": "lastLogin",
+            "name": "lastLoginAt",
             "description": "最后一次登录时间",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64",
-            "default": "-1"
+            "default": "0"
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -370,7 +380,6 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -398,7 +407,6 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
@@ -426,29 +434,763 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "adminer"
         ]
       }
     },
-    "/v1/api/admin/auth": {
+    "/v1/api/admin/campaign/": {
       "get": {
-        "summary": "鉴权接口",
-        "operationId": "auth",
+        "summary": "获取活动 基础API",
+        "operationId": "GetCampaign",
         "responses": {
           "200": {
             "description": "A successful response.",
-            "schema": {}
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
           }
         },
-        "requestBody": {},
+        "parameters": [
+          {
+            "name": "id",
+            "description": "活动 ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "campaign"
+        ]
+      },
+      "delete": {
+        "summary": "删除活动 基础API",
+        "operationId": "DelCampaign",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "删除活动请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelCampaignReq"
+            }
+          }
+        ],
+        "tags": [
+          "campaign"
+        ]
+      },
+      "post": {
+        "summary": "添加活动 基础API",
+        "operationId": "AddCampaign",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "添加活动请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCampaignReq"
+            }
+          }
+        ],
+        "tags": [
+          "campaign"
+        ]
+      },
+      "put": {
+        "summary": "更新活动 基础API",
+        "operationId": "PutCampaign",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "更新活动请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutCampaignReq"
+            }
+          }
+        ],
+        "tags": [
+          "campaign"
+        ]
+      }
+    },
+    "/v1/api/admin/campaign/enums": {
+      "get": {
+        "summary": "获取活动枚举列表 基础API",
+        "operationId": "GetCampaignEnums",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "parentId",
+            "description": "父级ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          }
+        ],
+        "tags": [
+          "campaign"
+        ]
+      }
+    },
+    "/v1/api/admin/campaign/list": {
+      "get": {
+        "summary": "获取活动列表 基础API",
+        "operationId": "GetCampaignList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageSize",
+            "description": "页面容量，默认20，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "20"
+          },
+          {
+            "name": "page",
+            "description": "当前页码，默认1，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "current",
+            "description": "当前页码，默认1，用于对接umijs，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "keyword",
+            "description": "关键词，可选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "表主键",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "uuid",
+            "description": "UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "活动名称",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "项目id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "status",
+            "description": "活动状态，是否在举办，默认关闭，需手动开启",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "pattern",
+            "description": "方案: 0会员制，1公开制，2会员需授权",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "maxCount",
+            "description": "最大抽奖次数：-1表示无限制，0表示不可抽奖",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "maxPrizes",
+            "description": "最大抽奖次数：-1表示无限制，0表示不可中奖",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "startTime",
+            "description": "活动开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "0"
+          },
+          {
+            "name": "endTime",
+            "description": "活动结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "0"
+          }
+        ],
+        "tags": [
+          "campaign"
+        ]
+      }
+    },
+    "/v1/api/admin/company/": {
+      "get": {
+        "summary": "获取公司 基础API",
+        "operationId": "GetCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "公司 ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "company"
+        ]
+      },
+      "delete": {
+        "summary": "删除公司 基础API",
+        "operationId": "DelCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "删除公司请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "company"
+        ]
+      },
+      "post": {
+        "summary": "添加公司 基础API",
+        "operationId": "AddCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "添加公司请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "company"
+        ]
+      },
+      "put": {
+        "summary": "更新公司 基础API",
+        "operationId": "PutCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "更新公司请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "company"
+        ]
+      }
+    },
+    "/v1/api/admin/company/enums": {
+      "get": {
+        "summary": "获取公司枚举列表 基础API",
+        "operationId": "GetCompanyEnums",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "parentId",
+            "description": "父级ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          }
+        ],
+        "tags": [
+          "company"
+        ]
+      }
+    },
+    "/v1/api/admin/company/list": {
+      "get": {
+        "summary": "获取公司列表 基础API",
+        "operationId": "GetCompanyList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageSize",
+            "description": "页面容量，默认20，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "20"
+          },
+          {
+            "name": "page",
+            "description": "当前页码，默认1，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "current",
+            "description": "当前页码，默认1，用于对接umijs，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "keyword",
+            "description": "关键词，可选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "表主键",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "uuid",
+            "description": "UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "公司名称",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "项目状态: 0关闭，1开启",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          }
+        ],
+        "tags": [
+          "company"
+        ]
+      }
+    },
+    "/v1/api/admin/currentUser": {
+      "post": {
+        "summary": "获取当前用户信息",
+        "operationId": "currentUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/bindEmailCaptcha": {
+    "/v1/api/admin/logout": {
+      "post": {
+        "summary": "注销登录",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/v1/api/admin/project/": {
+      "get": {
+        "summary": "获取项目 基础API",
+        "operationId": "GetProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "项目 ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "project"
+        ]
+      },
+      "delete": {
+        "summary": "删除项目 基础API",
+        "operationId": "DelProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "删除项目请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelProjectReq"
+            }
+          }
+        ],
+        "tags": [
+          "project"
+        ]
+      },
+      "post": {
+        "summary": "添加项目 基础API",
+        "operationId": "AddProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "添加项目请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProjectReq"
+            }
+          }
+        ],
+        "tags": [
+          "project"
+        ]
+      },
+      "put": {
+        "summary": "更新项目 基础API",
+        "operationId": "PutProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "更新项目请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutProjectReq"
+            }
+          }
+        ],
+        "tags": [
+          "project"
+        ]
+      }
+    },
+    "/v1/api/admin/project/enums": {
+      "get": {
+        "summary": "获取项目枚举列表 基础API",
+        "operationId": "GetProjectEnums",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "parentId",
+            "description": "父级ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          }
+        ],
+        "tags": [
+          "project"
+        ]
+      }
+    },
+    "/v1/api/admin/project/list": {
+      "get": {
+        "summary": "获取项目列表 基础API",
+        "operationId": "GetProjectList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageSize",
+            "description": "页面容量，默认20，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "20"
+          },
+          {
+            "name": "page",
+            "description": "当前页码，默认1，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "current",
+            "description": "当前页码，默认1，用于对接umijs，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "keyword",
+            "description": "关键词，可选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "表主键",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "uuid",
+            "description": "UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "项目名称",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "companyId",
+            "description": "公司id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "status",
+            "description": "项目状态: 0已下线，1已上线",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          }
+        ],
+        "tags": [
+          "project"
+        ]
+      }
+    },
+    "/v1/api/admin/public/bindEmailCaptcha": {
       "post": {
         "summary": "给绑定邮箱发送验证码",
         "operationId": "bindEmailCaptcha",
@@ -470,31 +1212,12 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/currentUser": {
-      "post": {
-        "summary": "获取当前用户信息",
-        "operationId": "currentUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        },
-        "requestBody": {},
-        "tags": [
-          "admin"
-        ]
-      }
-    },
-    "/v1/api/admin/login": {
+    "/v1/api/admin/public/login": {
       "post": {
         "summary": "登录",
         "operationId": "login",
@@ -517,13 +1240,12 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/loginByEmail": {
+    "/v1/api/admin/public/loginByEmail": {
       "post": {
         "summary": "邮箱登录",
         "operationId": "loginByEmail",
@@ -545,13 +1267,12 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/loginEmailCaptcha": {
+    "/v1/api/admin/public/loginEmailCaptcha": {
       "post": {
         "summary": "给登录邮箱发送验证码",
         "operationId": "loginEmailCaptcha",
@@ -573,31 +1294,12 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/logout": {
-      "post": {
-        "summary": "注销登录",
-        "operationId": "logout",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        },
-        "requestBody": {},
-        "tags": [
-          "admin"
-        ]
-      }
-    },
-    "/v1/api/admin/pwdCompare": {
+    "/v1/api/admin/public/pwdCompare": {
       "get": {
         "summary": "密码比较端口",
         "operationId": "pwdCompare",
@@ -625,13 +1327,12 @@
             "type": "string"
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/pwdEncryption": {
+    "/v1/api/admin/public/pwdEncryption": {
       "get": {
         "summary": "密码加密端口",
         "operationId": "pwdEncryption",
@@ -652,13 +1353,12 @@
             "type": "string"
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/registerEmailCaptcha": {
+    "/v1/api/admin/public/registerEmailCaptcha": {
       "post": {
         "summary": "给注册邮箱发送验证码",
         "operationId": "registerEmailCaptcha",
@@ -680,29 +1380,12 @@
             }
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
       }
     },
-    "/v1/api/admin/superAdminAuth": {
-      "get": {
-        "summary": "superAdmin鉴权接口",
-        "operationId": "superAdminAuth",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {}
-          }
-        },
-        "requestBody": {},
-        "tags": [
-          "admin"
-        ]
-      }
-    },
-    "/v1/api/admin/test": {
+    "/v1/api/admin/public/test": {
       "get": {
         "summary": "'预留的调试端口'",
         "operationId": "test",
@@ -723,7 +1406,6 @@
             "type": "string"
           }
         ],
-        "requestBody": {},
         "tags": [
           "admin"
         ]
@@ -741,7 +1423,6 @@
             }
           }
         },
-        "requestBody": {},
         "tags": [
           "upload"
         ]
@@ -759,7 +1440,6 @@
             }
           }
         },
-        "requestBody": {},
         "tags": [
           "upload"
         ]
@@ -777,9 +1457,240 @@
             }
           }
         },
-        "requestBody": {},
         "tags": [
           "upload"
+        ]
+      }
+    },
+    "/v1/api/admin/web/": {
+      "get": {
+        "summary": "获取网站 基础API",
+        "operationId": "GetWeb",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "网站 ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "web"
+        ]
+      },
+      "delete": {
+        "summary": "删除网站 基础API",
+        "operationId": "DelWeb",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "删除网站请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelWebReq"
+            }
+          }
+        ],
+        "tags": [
+          "web"
+        ]
+      },
+      "post": {
+        "summary": "添加网站 基础API",
+        "operationId": "AddWeb",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "添加网站请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddWebReq"
+            }
+          }
+        ],
+        "tags": [
+          "web"
+        ]
+      },
+      "put": {
+        "summary": "更新网站 基础API",
+        "operationId": "PutWeb",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "更新网站请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutWebReq"
+            }
+          }
+        ],
+        "tags": [
+          "web"
+        ]
+      }
+    },
+    "/v1/api/admin/web/enums": {
+      "get": {
+        "summary": "获取网站枚举列表 基础API",
+        "operationId": "GetWebEnums",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "parentId",
+            "description": "父级ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          }
+        ],
+        "tags": [
+          "web"
+        ]
+      }
+    },
+    "/v1/api/admin/web/list": {
+      "get": {
+        "summary": "获取网站列表 基础API",
+        "operationId": "GetWebList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageSize",
+            "description": "页面容量，默认20，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "20"
+          },
+          {
+            "name": "page",
+            "description": "当前页码，默认1，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "current",
+            "description": "当前页码，默认1，用于对接umijs，可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "keyword",
+            "description": "关键词，可选",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "表主键",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "uuid",
+            "description": "UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "项目id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "-1"
+          },
+          {
+            "name": "url",
+            "description": "连接",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "description": "备注",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "description": "代码",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "web"
         ]
       }
     }
@@ -822,12 +1733,22 @@
           "format": "int64",
           "description": "是否为超级管理员"
         },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司id"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
         "loginCount": {
           "type": "integer",
           "format": "int64",
           "description": "登录次数"
         },
-        "lastLogin": {
+        "lastLoginAt": {
           "type": "integer",
           "format": "int64",
           "description": "最后一次登录时间"
@@ -843,8 +1764,138 @@
         "email",
         "status",
         "isSuperAdmin",
+        "companyId",
+        "projectId",
         "loginCount",
-        "lastLogin"
+        "lastLoginAt"
+      ]
+    },
+    "AddCampaignReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "活动名称"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动状态，是否在举办，默认关闭，需手动开启"
+        },
+        "pattern": {
+          "type": "integer",
+          "format": "int64",
+          "description": "方案: 0会员制，1公开制，2会员需授权"
+        },
+        "maxCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可抽奖"
+        },
+        "maxPrizes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可中奖"
+        },
+        "startTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动开始时间"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动结束时间"
+        }
+      },
+      "title": "AddCampaignReq",
+      "required": [
+        "name",
+        "projectId",
+        "status",
+        "pattern",
+        "maxCount",
+        "maxPrizes",
+        "startTime",
+        "endTime"
+      ]
+    },
+    "AddCompanyReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "公司名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目状态: 0关闭，1开启"
+        }
+      },
+      "title": "AddCompanyReq",
+      "required": [
+        "name",
+        "status"
+      ]
+    },
+    "AddProjectReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "项目名称"
+        },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目状态: 0已下线，1已上线"
+        }
+      },
+      "title": "AddProjectReq",
+      "required": [
+        "name",
+        "companyId",
+        "status"
+      ]
+    },
+    "AddWebReq": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
+        "url": {
+          "type": "string",
+          "description": "连接"
+        },
+        "description": {
+          "type": "string",
+          "description": "备注"
+        },
+        "code": {
+          "type": "string",
+          "description": "代码"
+        }
+      },
+      "title": "AddWebReq",
+      "required": [
+        "projectId",
+        "url",
+        "description",
+        "code"
       ]
     },
     "Adminer": {
@@ -893,12 +1944,22 @@
           "format": "int64",
           "description": "是否为超级管理员"
         },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司id"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
         "loginCount": {
           "type": "integer",
           "format": "int64",
           "description": "登录次数"
         },
-        "lastLogin": {
+        "lastLoginAt": {
           "type": "integer",
           "format": "int64",
           "description": "最后一次登录时间"
@@ -916,8 +1977,10 @@
         "email",
         "status",
         "isSuperAdmin",
+        "companyId",
+        "projectId",
         "loginCount",
-        "lastLogin"
+        "lastLoginAt"
       ]
     },
     "BaseResp": {
@@ -996,20 +2059,7 @@
       "title": "BaseResp",
       "required": [
         "status",
-        "success",
-        "message",
-        "data",
-        "total",
-        "pageSize",
-        "current",
-        "page",
-        "totalPage",
-        "errorCode",
-        "errorMessage",
-        "traceMessage",
-        "showType",
-        "traceId",
-        "host"
+        "success"
       ]
     },
     "ByIdReq": {
@@ -1024,6 +2074,72 @@
       "title": "ByIdReq",
       "required": [
         "id"
+      ]
+    },
+    "Campaign": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "活动名称"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动状态，是否在举办，默认关闭，需手动开启"
+        },
+        "pattern": {
+          "type": "integer",
+          "format": "int64",
+          "description": "方案: 0会员制，1公开制，2会员需授权"
+        },
+        "maxCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可抽奖"
+        },
+        "maxPrizes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可中奖"
+        },
+        "startTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动开始时间"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动结束时间"
+        }
+      },
+      "title": "Campaign",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "projectId",
+        "status",
+        "pattern",
+        "maxCount",
+        "maxPrizes",
+        "startTime",
+        "endTime"
       ]
     },
     "CaptchaResp": {
@@ -1045,6 +2161,36 @@
         "expiresAt"
       ]
     },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "公司名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目状态: 0关闭，1开启"
+        }
+      },
+      "title": "Company",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "status"
+      ]
+    },
     "DelAdminerReq": {
       "type": "object",
       "properties": {
@@ -1055,6 +2201,62 @@
         }
       },
       "title": "DelAdminerReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DelCampaignReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动 ID"
+        }
+      },
+      "title": "DelCampaignReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DelCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司 ID"
+        }
+      },
+      "title": "DelCompanyReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DelProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目 ID"
+        }
+      },
+      "title": "DelProjectReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DelWebReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "网站 ID"
+        }
+      },
+      "title": "DelWebReq",
       "required": [
         "id"
       ]
@@ -1100,7 +2302,7 @@
           "type": "string",
           "description": " 邮箱"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1112,7 +2314,7 @@
       "title": "ForgotPasswordReq",
       "required": [
         "email",
-        "captcha_id",
+        "captchaId",
         "solution"
       ]
     },
@@ -1126,10 +2328,7 @@
           "description": "父级ID"
         }
       },
-      "title": "GetAdminerEnumsReq",
-      "required": [
-        "parentId"
-      ]
+      "title": "GetAdminerEnumsReq"
     },
     "GetAdminerListReq": {
       "type": "object",
@@ -1202,30 +2401,32 @@
           "default": "-1",
           "description": "是否为超级管理员"
         },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "公司id"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "项目id"
+        },
         "loginCount": {
           "type": "integer",
           "format": "int64",
           "default": "-1",
           "description": "登录次数"
         },
-        "lastLogin": {
+        "lastLoginAt": {
           "type": "integer",
           "format": "int64",
-          "default": "-1",
+          "default": "0",
           "description": "最后一次登录时间"
         }
       },
-      "title": "GetAdminerListReq",
-      "required": [
-        "pageSize",
-        "page",
-        "current",
-        "id",
-        "status",
-        "isSuperAdmin",
-        "loginCount",
-        "lastLogin"
-      ]
+      "title": "GetAdminerListReq"
     },
     "GetAdminerReq": {
       "type": "object",
@@ -1237,6 +2438,352 @@
         }
       },
       "title": "GetAdminerReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetCampaignEnumsReq": {
+      "type": "object",
+      "properties": {
+        "parentId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "父级ID"
+        }
+      },
+      "title": "GetCampaignEnumsReq"
+    },
+    "GetCampaignListReq": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "default": "20",
+          "description": "页面容量，默认20，可选"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，可选"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，用于对接umijs，可选"
+        },
+        "keyword": {
+          "type": "string",
+          "description": "关键词，可选"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "活动名称"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "项目id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "活动状态，是否在举办，默认关闭，需手动开启"
+        },
+        "pattern": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "方案: 0会员制，1公开制，2会员需授权"
+        },
+        "maxCount": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可抽奖"
+        },
+        "maxPrizes": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可中奖"
+        },
+        "startTime": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "活动开始时间"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "活动结束时间"
+        }
+      },
+      "title": "GetCampaignListReq"
+    },
+    "GetCampaignReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动 ID"
+        }
+      },
+      "title": "GetCampaignReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetCompanyEnumsReq": {
+      "type": "object",
+      "properties": {
+        "parentId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "父级ID"
+        }
+      },
+      "title": "GetCompanyEnumsReq"
+    },
+    "GetCompanyListReq": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "default": "20",
+          "description": "页面容量，默认20，可选"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，可选"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，用于对接umijs，可选"
+        },
+        "keyword": {
+          "type": "string",
+          "description": "关键词，可选"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "公司名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "项目状态: 0关闭，1开启"
+        }
+      },
+      "title": "GetCompanyListReq"
+    },
+    "GetCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司 ID"
+        }
+      },
+      "title": "GetCompanyReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetProjectEnumsReq": {
+      "type": "object",
+      "properties": {
+        "parentId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "父级ID"
+        }
+      },
+      "title": "GetProjectEnumsReq"
+    },
+    "GetProjectListReq": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "default": "20",
+          "description": "页面容量，默认20，可选"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，可选"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，用于对接umijs，可选"
+        },
+        "keyword": {
+          "type": "string",
+          "description": "关键词，可选"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名称"
+        },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "公司id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "项目状态: 0已下线，1已上线"
+        }
+      },
+      "title": "GetProjectListReq"
+    },
+    "GetProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目 ID"
+        }
+      },
+      "title": "GetProjectReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetWebEnumsReq": {
+      "type": "object",
+      "properties": {
+        "parentId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "父级ID"
+        }
+      },
+      "title": "GetWebEnumsReq"
+    },
+    "GetWebListReq": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "default": "20",
+          "description": "页面容量，默认20，可选"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，可选"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "当前页码，默认1，用于对接umijs，可选"
+        },
+        "keyword": {
+          "type": "string",
+          "description": "关键词，可选"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "default": "-1",
+          "description": "项目id"
+        },
+        "url": {
+          "type": "string",
+          "description": "连接"
+        },
+        "description": {
+          "type": "string",
+          "description": "备注"
+        },
+        "code": {
+          "type": "string",
+          "description": "代码"
+        }
+      },
+      "title": "GetWebListReq"
+    },
+    "GetWebReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "网站 ID"
+        }
+      },
+      "title": "GetWebReq",
       "required": [
         "id"
       ]
@@ -1292,12 +2839,7 @@
           "description": "关键词，可选"
         }
       },
-      "title": "ListReq",
-      "required": [
-        "pageSize",
-        "page",
-        "current"
-      ]
+      "title": "ListReq"
     },
     "NilReq": {
       "type": "object",
@@ -1340,6 +2882,42 @@
       "title": "Options",
       "required": [
         "list"
+      ]
+    },
+    "Project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名称"
+        },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目状态: 0已下线，1已上线"
+        }
+      },
+      "title": "Project",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "companyId",
+        "status"
       ]
     },
     "PutAdminerReq": {
@@ -1388,12 +2966,22 @@
           "format": "int64",
           "description": "是否为超级管理员"
         },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司id"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
         "loginCount": {
           "type": "integer",
           "format": "int64",
           "description": "登录次数"
         },
-        "lastLogin": {
+        "lastLoginAt": {
           "type": "integer",
           "format": "int64",
           "description": "最后一次登录时间"
@@ -1411,8 +2999,106 @@
         "email",
         "status",
         "isSuperAdmin",
+        "companyId",
+        "projectId",
         "loginCount",
-        "lastLogin"
+        "lastLoginAt"
+      ]
+    },
+    "PutCampaignReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "活动名称"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动状态，是否在举办，默认关闭，需手动开启"
+        },
+        "pattern": {
+          "type": "integer",
+          "format": "int64",
+          "description": "方案: 0会员制，1公开制，2会员需授权"
+        },
+        "maxCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可抽奖"
+        },
+        "maxPrizes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最大抽奖次数：-1表示无限制，0表示不可中奖"
+        },
+        "startTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动开始时间"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "活动结束时间"
+        }
+      },
+      "title": "PutCampaignReq",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "projectId",
+        "status",
+        "pattern",
+        "maxCount",
+        "maxPrizes",
+        "startTime",
+        "endTime"
+      ]
+    },
+    "PutCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "公司名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目状态: 0关闭，1开启"
+        }
+      },
+      "title": "PutCompanyReq",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "status"
       ]
     },
     "PutCurrentReq": {
@@ -1446,15 +3132,15 @@
     "PutPasswordReq": {
       "type": "object",
       "properties": {
-        "old_password": {
+        "oldPassword": {
           "type": "string",
           "description": " 旧密码"
         },
-        "new_password": {
+        "newPassword": {
           "type": "string",
           "description": " 新密码"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1465,10 +3151,86 @@
       },
       "title": "PutPasswordReq",
       "required": [
-        "old_password",
-        "new_password",
-        "captcha_id",
+        "oldPassword",
+        "newPassword",
+        "captchaId",
         "solution"
+      ]
+    },
+    "PutProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名称"
+        },
+        "companyId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "公司id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目状态: 0已下线，1已上线"
+        }
+      },
+      "title": "PutProjectReq",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "companyId",
+        "status"
+      ]
+    },
+    "PutWebReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
+        "url": {
+          "type": "string",
+          "description": "连接"
+        },
+        "description": {
+          "type": "string",
+          "description": "备注"
+        },
+        "code": {
+          "type": "string",
+          "description": "代码"
+        }
+      },
+      "title": "PutWebReq",
+      "required": [
+        "id",
+        "uuid",
+        "projectId",
+        "url",
+        "description",
+        "code"
       ]
     },
     "Resp": {
@@ -1539,6 +3301,46 @@
         "password"
       ]
     },
+    "Web": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "表主键"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "UUID"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目id"
+        },
+        "url": {
+          "type": "string",
+          "description": "连接"
+        },
+        "description": {
+          "type": "string",
+          "description": "备注"
+        },
+        "code": {
+          "type": "string",
+          "description": "代码"
+        }
+      },
+      "title": "Web",
+      "required": [
+        "id",
+        "uuid",
+        "projectId",
+        "url",
+        "description",
+        "code"
+      ]
+    },
     "bindEmailCaptchaReq": {
       "type": "object",
       "properties": {
@@ -1546,7 +3348,7 @@
           "type": "string",
           "description": "邮箱地址"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1558,6 +3360,32 @@
       "title": "bindEmailCaptchaReq",
       "required": [
         "email",
+        "solution"
+      ]
+    },
+    "devPanelLoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "captchaId": {
+          "type": "string",
+          "description": "验证码ID"
+        },
+        "solution": {
+          "type": "string",
+          "description": "验证码答案"
+        }
+      },
+      "title": "devPanelLoginReq",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
         "solution"
       ]
     },
@@ -1574,7 +3402,7 @@
           "default": "false",
           "description": "是否开启自动登录"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1597,7 +3425,7 @@
           "type": "string",
           "description": "邮箱地址"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1626,7 +3454,7 @@
           "format": "boolean",
           "default": "false"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1640,7 +3468,7 @@
         "passport",
         "password",
         "autoLogin",
-        "captcha_id",
+        "captchaId",
         "solution"
       ]
     },
@@ -1682,7 +3510,7 @@
           "type": "string",
           "description": "邮箱地址"
         },
-        "captcha_id": {
+        "captchaId": {
           "type": "string",
           "description": "验证码ID"
         },
@@ -1715,10 +3543,5 @@
       "name": "Authorization",
       "in": "header"
     }
-  },
-  "security": [
-    {
-      "apiKey": []
-    }
-  ]
+  }
 }

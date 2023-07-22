@@ -1,13 +1,13 @@
 import { putPassword } from '@/services/swagger/admin';
 import type { PutPasswordReq } from '@/services/swagger/adminComponents';
-import { mathCaptcha } from '@/services/swagger/captcha';
-import { CaptchaInfo, CaptchaReq } from '@/services/swagger/captchaComponents';
+import { getMathCaptcha } from '@/services/swagger/authentication';
+import { CaptchaInfo, CaptchaReq } from '@/services/swagger/authenticationComponents';
 import { SafetyCertificateOutlined } from '@ant-design/icons';
 import { message } from 'antd';
-import { useForm } from 'antd/es/form/Form';
 import { FC, useState } from 'react';
 import styles from './style.less';
 import { DrawerForm, ProFormText, ProFormItem, ProFormDigit } from '@ant-design/pro-components';
+import { useForm } from 'antd/lib/form/Form';
 
 type PutPasswordModalProps = {
     open: boolean;
@@ -33,7 +33,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                     A: 254,
                 },
             };
-            const result = await mathCaptcha(captchaParams);
+            const result = await getMathCaptcha(captchaParams);
             setImgCaptcha((result as API.BaseResp).data as CaptchaInfo);
         } catch (error) {
             message.error('获取验证码失败！');
@@ -81,14 +81,14 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
             onOpenChange={onVisibleChange}
             width={375}
             onFinish={async (values) => {
-                if (!imgCaptcha?.captcha_id) {
+                if (!imgCaptcha?.captchaId) {
                     message.error("not found captcha");
                     return false
                 }
                 const req = {
-                    old_password: values.old_password,
-                    new_password: values.new_password,
-                    captcha_id: imgCaptcha.captcha_id,
+                    oldPassword: values.oldPassword,
+                    newPassword: values.newPassword,
+                    captchaId: imgCaptcha.captchaId,
                     solution: values.solution + "",
                 }
                 const ok = await onSubmit(req)
@@ -111,7 +111,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                     },
                 ]}
                 width="md"
-                name="old_password"
+                name="oldPassword"
                 label="原密码"
             />
             <ProFormText.Password
@@ -126,7 +126,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                     },
                 ]}
                 width="md"
-                name="new_password"
+                name="newPassword"
                 label="新密码"
             />
             <ProFormText.Password
@@ -145,11 +145,11 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                     }
                 ]}
                 width="md"
-                name="new_password2"
+                name="newPassword2"
                 label="确认密码"
                 fieldProps={{
                     onChange: (e) => {
-                        const pwd1 = form.getFieldValue('new_password')
+                        const pwd1 = form.getFieldValue('newPassword')
                         const pwd2 = e.currentTarget.value;
                         const ok = confirmPassword(pwd1, pwd2);
                         if (!ok) {
@@ -173,7 +173,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                             message: '验证码格式错误！',
                         },
                     ]}
-                    key="account_solution"
+                    key="accountSolution"
                     name="solution"
                     fieldProps={{
                         size: 'large',
@@ -182,8 +182,8 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                     width="sm"
                     label="验证码"
                 />
-                <div className={styles.captchaimg} key="account_captchaImag" onClick={getCaptchaImage}>
-                    <img src={imgCaptcha?.base64_image || ''} />
+                <div className={styles.captchaimg} key="accountCaptchaImag" onClick={getCaptchaImage}>
+                    <img src={imgCaptcha?.base64Image || ''} />
                 </div>
             </ProFormItem>
         </DrawerForm>

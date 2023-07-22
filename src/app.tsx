@@ -9,6 +9,7 @@ import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import { currentUser as queryCurrentUser } from '@/services/swagger/admin';
 import React from 'react';
+import { checkImageLoad } from './utils';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
 
@@ -27,11 +28,14 @@ export async function getInitialState(): Promise<{
         skipErrorHandler: true,
       });
       const adminer = resp.data as API.CurrentUser;
-      if (adminer.is_super_admin) {
+      if (adminer.isSuperAdmin) {
         adminer.access = "admin"
       } else {
         adminer.access = "";
       }
+      await checkImageLoad(adminer?.avatar || "").catch(() => {
+        adminer.avatar = "https://img.alicdn.com/imgextra/i2/917298378/O1CN01Ed9Jkc2BlB3s5Vqbi_!!917298378.jpg"
+      });
       return adminer
     } catch (error) {
       history.push(loginPath);
@@ -62,7 +66,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
       render: (_, avatarChildren) => {
-        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+        return <AvatarDropdown menu={true}>{avatarChildren}</AvatarDropdown>;
       },
     },
     waterMarkProps: {
@@ -98,11 +102,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     ],
     links: isDev
       ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
+        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined />
+          <span>OpenAPI 文档</span>
+        </Link>,
+      ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面

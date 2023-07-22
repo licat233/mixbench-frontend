@@ -71,7 +71,7 @@ const loginOut = async () => {
   }
 };
 
-export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, children }) => {
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [pwdModalVisible, setPwdModalVisible] = useState(false);
@@ -234,6 +234,18 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     },
   ];
 
+  const avatarModule = (): React.ReactNode => {
+    if (children) {
+      return children
+    }
+    return <></>
+
+    return <span className={actionClassName}>
+      <AvatarLogo />
+      <Name />
+    </span>
+  }
+
   return (
     <>
       <HeaderDropdown
@@ -243,10 +255,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           items: menuItems,
         }}
       >
-        <span className={actionClassName}>
-          <AvatarLogo />
-          <Name />
-        </span>
+        {avatarModule()}
       </HeaderDropdown>
       <OperationModal
         done={done}

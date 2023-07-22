@@ -133,17 +133,25 @@ export default defineConfig({
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://micro.mixbench.net/v1/static/captcha/swagger.json',
-      projectName: 'captcha',
+      schemaPath: 'http://micro.mixbench.net/v1/static/authentication/swagger.json',
+      projectName: 'authentication',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: 'http://micro.mixbench.net/v1/static/luckydraw/swagger.json',
       projectName: 'luckydraw',
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: 'http://micro.mixbench.net/v1/static/chat/swagger.json',
+      projectName: 'chat',
+    },
   ],
   mfsu: {
     strategy: 'normal',
   },
   requestRecord: {},
+  define: {
+    API_URL: 'http://micro.mixbench.net', // API地址
+  }
 });

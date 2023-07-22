@@ -3,25 +3,11 @@ import type * as components from "./adminComponents"
 export * from "./adminComponents"
 
 /**
- * @description "鉴权接口"
- */
-export function auth(options?: Record<string, any>) {
-	return webapi.get<null>(`/v1/api/admin/auth`, null, options)
-}
-
-/**
- * @description "superAdmin鉴权接口"
- */
-export function superAdminAuth(options?: Record<string, any>) {
-	return webapi.get<null>(`/v1/api/admin/superAdminAuth`, null, options)
-}
-
-/**
  * @description "登录"
  * @param req
  */
 export function login(req: components.LoginReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/admin/login`, req, options)
+	return webapi.post<components.BaseResp>(`/v1/api/admin/public/login`, req, options)
 }
 
 /**
@@ -29,7 +15,7 @@ export function login(req: components.LoginReq, options?: Record<string, any>) {
  * @param req
  */
 export function loginByEmail(req: components.LoginByEmailReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/admin/loginByEmail`, req, options)
+	return webapi.post<components.BaseResp>(`/v1/api/admin/public/loginByEmail`, req, options)
 }
 
 /**
@@ -37,7 +23,7 @@ export function loginByEmail(req: components.LoginByEmailReq, options?: Record<s
  * @param req
  */
 export function loginEmailCaptcha(req: components.LoginEmailCaptchaReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/admin/loginEmailCaptcha`, req, options)
+	return webapi.post<components.BaseResp>(`/v1/api/admin/public/loginEmailCaptcha`, req, options)
 }
 
 /**
@@ -45,7 +31,7 @@ export function loginEmailCaptcha(req: components.LoginEmailCaptchaReq, options?
  * @param req
  */
 export function registerEmailCaptcha(req: components.RegisterEmailCaptchaReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/admin/registerEmailCaptcha`, req, options)
+	return webapi.post<components.BaseResp>(`/v1/api/admin/public/registerEmailCaptcha`, req, options)
 }
 
 /**
@@ -53,7 +39,7 @@ export function registerEmailCaptcha(req: components.RegisterEmailCaptchaReq, op
  * @param req
  */
 export function bindEmailCaptcha(req: components.BindEmailCaptchaReq, options?: Record<string, any>) {
-	return webapi.post<components.BaseResp>(`/v1/api/admin/bindEmailCaptcha`, req, options)
+	return webapi.post<components.BaseResp>(`/v1/api/admin/public/bindEmailCaptcha`, req, options)
 }
 
 /**
@@ -61,7 +47,7 @@ export function bindEmailCaptcha(req: components.BindEmailCaptchaReq, options?: 
  * @param params
  */
 export function test(params: components.TestReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/admin/test`, params, options)
+	return webapi.get<components.BaseResp>(`/v1/api/admin/public/test`, params, options)
 }
 
 /**
@@ -69,7 +55,7 @@ export function test(params: components.TestReqParams, options?: Record<string, 
  * @param params
  */
 export function pwdEncryption(params: components.PwdEncryptionReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/admin/pwdEncryption`, params, options)
+	return webapi.get<components.BaseResp>(`/v1/api/admin/public/pwdEncryption`, params, options)
 }
 
 /**
@@ -77,7 +63,7 @@ export function pwdEncryption(params: components.PwdEncryptionReqParams, options
  * @param params
  */
 export function pwdCompare(params: components.PwdCompareReqParams, options?: Record<string, any>) {
-	return webapi.get<components.BaseResp>(`/v1/api/admin/pwdCompare`, params, options)
+	return webapi.get<components.BaseResp>(`/v1/api/admin/public/pwdCompare`, params, options)
 }
 
 /**
@@ -179,6 +165,198 @@ export function putPassword(req: components.PutPasswordReq, options?: Record<str
  */
 export function forgotPassword(req: components.ForgotPasswordReq, options?: Record<string, any>) {
 	return webapi.post<components.BaseResp>(`/v1/api/admin/adminer/forgotPassword`, req, options)
+}
+
+/**
+ * @description "添加活动 基础API"
+ * @param req
+ */
+export function addCampaign(req: components.AddCampaignReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/admin/campaign`, req, options)
+}
+
+/**
+ * @description "更新活动 基础API"
+ * @param req
+ */
+export function putCampaign(req: components.PutCampaignReq, options?: Record<string, any>) {
+	return webapi.put<components.BaseResp>(`/v1/api/admin/campaign`, req, options)
+}
+
+/**
+ * @description "获取活动 基础API"
+ * @param req
+ */
+export function getCampaign(req: components.GetCampaignReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/campaign`, req, options)
+}
+
+/**
+ * @description "删除活动 基础API"
+ * @param req
+ */
+export function delCampaign(req: components.DelCampaignReq, options?: Record<string, any>) {
+	return webapi.delete<components.BaseResp>(`/v1/api/admin/campaign`, req, options)
+}
+
+/**
+ * @description "获取活动列表 基础API"
+ * @param params
+ */
+export function getCampaignList(params: components.GetCampaignListReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/campaign/list`, params, options)
+}
+
+/**
+ * @description "获取活动枚举列表 基础API"
+ * @param req
+ */
+export function getCampaignEnums(req: components.GetCampaignEnumsReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/campaign/enums`, req, options)
+}
+
+/**
+ * @description "添加公司 基础API"
+ * @param req
+ */
+export function addCompany(req: components.AddCompanyReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/admin/company`, req, options)
+}
+
+/**
+ * @description "更新公司 基础API"
+ * @param req
+ */
+export function putCompany(req: components.PutCompanyReq, options?: Record<string, any>) {
+	return webapi.put<components.BaseResp>(`/v1/api/admin/company`, req, options)
+}
+
+/**
+ * @description "获取公司 基础API"
+ * @param req
+ */
+export function getCompany(req: components.GetCompanyReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/company`, req, options)
+}
+
+/**
+ * @description "删除公司 基础API"
+ * @param req
+ */
+export function delCompany(req: components.DelCompanyReq, options?: Record<string, any>) {
+	return webapi.delete<components.BaseResp>(`/v1/api/admin/company`, req, options)
+}
+
+/**
+ * @description "获取公司列表 基础API"
+ * @param params
+ */
+export function getCompanyList(params: components.GetCompanyListReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/company/list`, params, options)
+}
+
+/**
+ * @description "获取公司枚举列表 基础API"
+ * @param req
+ */
+export function getCompanyEnums(req: components.GetCompanyEnumsReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/company/enums`, req, options)
+}
+
+/**
+ * @description "添加项目 基础API"
+ * @param req
+ */
+export function addProject(req: components.AddProjectReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/admin/project`, req, options)
+}
+
+/**
+ * @description "更新项目 基础API"
+ * @param req
+ */
+export function putProject(req: components.PutProjectReq, options?: Record<string, any>) {
+	return webapi.put<components.BaseResp>(`/v1/api/admin/project`, req, options)
+}
+
+/**
+ * @description "获取项目 基础API"
+ * @param req
+ */
+export function getProject(req: components.GetProjectReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/project`, req, options)
+}
+
+/**
+ * @description "删除项目 基础API"
+ * @param req
+ */
+export function delProject(req: components.DelProjectReq, options?: Record<string, any>) {
+	return webapi.delete<components.BaseResp>(`/v1/api/admin/project`, req, options)
+}
+
+/**
+ * @description "获取项目列表 基础API"
+ * @param params
+ */
+export function getProjectList(params: components.GetProjectListReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/project/list`, params, options)
+}
+
+/**
+ * @description "获取项目枚举列表 基础API"
+ * @param req
+ */
+export function getProjectEnums(req: components.GetProjectEnumsReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/project/enums`, req, options)
+}
+
+/**
+ * @description "添加网站 基础API"
+ * @param req
+ */
+export function addWeb(req: components.AddWebReq, options?: Record<string, any>) {
+	return webapi.post<components.BaseResp>(`/v1/api/admin/web`, req, options)
+}
+
+/**
+ * @description "更新网站 基础API"
+ * @param req
+ */
+export function putWeb(req: components.PutWebReq, options?: Record<string, any>) {
+	return webapi.put<components.BaseResp>(`/v1/api/admin/web`, req, options)
+}
+
+/**
+ * @description "获取网站 基础API"
+ * @param req
+ */
+export function getWeb(req: components.GetWebReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/web`, req, options)
+}
+
+/**
+ * @description "删除网站 基础API"
+ * @param req
+ */
+export function delWeb(req: components.DelWebReq, options?: Record<string, any>) {
+	return webapi.delete<components.BaseResp>(`/v1/api/admin/web`, req, options)
+}
+
+/**
+ * @description "获取网站列表 基础API"
+ * @param params
+ */
+export function getWebList(params: components.GetWebListReqParams, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/web/list`, params, options)
+}
+
+/**
+ * @description "获取网站枚举列表 基础API"
+ * @param req
+ */
+export function getWebEnums(req: components.GetWebEnumsReq, options?: Record<string, any>) {
+	return webapi.get<components.BaseResp>(`/v1/api/admin/web/enums`, req, options)
 }
 
 /**

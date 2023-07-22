@@ -86,32 +86,32 @@ export interface LoginReq {
 	passport: string
 	password: string
 	autoLogin: boolean
-	captcha_id: string // 验证码ID
+	captchaId: string // 验证码ID
 	solution: string // 验证码答案
 }
 
 export interface LoginByEmailReq {
 	email: string // 邮箱地址
 	autoLogin: boolean // 是否开启自动登录
-	captcha_id?: string // 验证码ID
+	captchaId?: string // 验证码ID
 	solution: string // 验证码答案
 }
 
 export interface LoginEmailCaptchaReq {
 	email: string // 邮箱地址
-	captcha_id?: string // 验证码ID
+	captchaId?: string // 验证码ID
 	solution: string // 验证码答案
 }
 
 export interface RegisterEmailCaptchaReq {
 	email: string // 邮箱地址
-	captcha_id?: string // 验证码ID
+	captchaId?: string // 验证码ID
 	solution: string // 验证码答案
 }
 
 export interface BindEmailCaptchaReq {
 	email: string // 邮箱地址
-	captcha_id?: string // 验证码ID
+	captchaId?: string // 验证码ID
 	solution: string // 验证码答案
 }
 
@@ -134,6 +134,13 @@ export interface PwdCompareReqParams {
 	hash: string // 密文
 }
 
+export interface DevPanelLoginReq {
+	username: string
+	password: string
+	captchaId: string // 验证码ID
+	solution: string // 验证码答案
+}
+
 export interface Adminer {
 	id: number // 表主键
 	uuid: string // UUID
@@ -145,8 +152,10 @@ export interface Adminer {
 	email: string // 邮箱
 	status: number // 账号状态，是否可用
 	isSuperAdmin: number // 是否为超级管理员
+	companyId: number // 公司id
+	projectId: number // 项目id
 	loginCount: number // 登录次数
-	lastLogin: number // 最后一次登录时间
+	lastLoginAt: number // 最后一次登录时间
 }
 
 export interface AddAdminerReq {
@@ -158,8 +167,10 @@ export interface AddAdminerReq {
 	email: string // 邮箱
 	status: number // 账号状态，是否可用
 	isSuperAdmin: number // 是否为超级管理员
+	companyId: number // 公司id
+	projectId: number // 项目id
 	loginCount: number // 登录次数
-	lastLogin: number // 最后一次登录时间
+	lastLoginAt: number // 最后一次登录时间
 }
 
 export interface PutAdminerReq {
@@ -173,8 +184,10 @@ export interface PutAdminerReq {
 	email: string // 邮箱
 	status: number // 账号状态，是否可用
 	isSuperAdmin: number // 是否为超级管理员
+	companyId: number // 公司id
+	projectId: number // 项目id
 	loginCount: number // 登录次数
-	lastLogin: number // 最后一次登录时间
+	lastLoginAt: number // 最后一次登录时间
 }
 
 export interface DelAdminerReq {
@@ -202,8 +215,10 @@ export interface GetAdminerListReqParams {
 	email: string // 邮箱
 	status: number // 账号状态，是否可用
 	isSuperAdmin: number // 是否为超级管理员
+	companyId: number // 公司id
+	projectId: number // 项目id
 	loginCount: number // 登录次数
-	lastLogin: number // 最后一次登录时间
+	lastLoginAt: number // 最后一次登录时间
 }
 
 export interface GetAdminerEnumsReq {
@@ -222,17 +237,229 @@ export interface VerifyPasswordReq {
 }
 
 export interface PutPasswordReq {
-	old_password: string // 旧密码
-	new_password: string // 新密码
+	oldPassword: string // 旧密码
+	newPassword: string // 新密码
 	//附加的验证码
-	captcha_id: string // 验证码ID
+	captchaId: string // 验证码ID
 	solution: string // 验证码答案
 }
 
 export interface ForgotPasswordReq {
 	email: string // 邮箱
 	//附加的验证码
-	captcha_id: string // 验证码ID
+	captchaId: string // 验证码ID
 	solution: string // 验证码答案
+}
+
+export interface Campaign {
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 活动名称
+	projectId: number // 项目id
+	status: number // 活动状态，是否在举办，默认关闭，需手动开启
+	pattern: number // 方案: 0会员制，1公开制，2会员需授权
+	maxCount: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	maxPrizes: number // 最大抽奖次数：-1表示无限制，0表示不可中奖
+	startTime: number // 活动开始时间
+	endTime: number // 活动结束时间
+}
+
+export interface AddCampaignReq {
+	name: string // 活动名称
+	projectId: number // 项目id
+	status: number // 活动状态，是否在举办，默认关闭，需手动开启
+	pattern: number // 方案: 0会员制，1公开制，2会员需授权
+	maxCount: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	maxPrizes: number // 最大抽奖次数：-1表示无限制，0表示不可中奖
+	startTime: number // 活动开始时间
+	endTime: number // 活动结束时间
+}
+
+export interface PutCampaignReq {
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 活动名称
+	projectId: number // 项目id
+	status: number // 活动状态，是否在举办，默认关闭，需手动开启
+	pattern: number // 方案: 0会员制，1公开制，2会员需授权
+	maxCount: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	maxPrizes: number // 最大抽奖次数：-1表示无限制，0表示不可中奖
+	startTime: number // 活动开始时间
+	endTime: number // 活动结束时间
+}
+
+export interface DelCampaignReq {
+	id: number // 活动 ID
+}
+
+export interface GetCampaignReq {
+	id: number // 活动 ID
+}
+
+export interface GetCampaignListReq {
+}
+export interface GetCampaignListReqParams {
+	pageSize: number // 页面容量，默认20，可选
+	page: number // 当前页码，默认1，可选
+	current: number // 当前页码，默认1，用于对接umijs，可选
+	keyword: string // 关键词，可选
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 活动名称
+	projectId: number // 项目id
+	status: number // 活动状态，是否在举办，默认关闭，需手动开启
+	pattern: number // 方案: 0会员制，1公开制，2会员需授权
+	maxCount: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	maxPrizes: number // 最大抽奖次数：-1表示无限制，0表示不可中奖
+	startTime: number // 活动开始时间
+	endTime: number // 活动结束时间
+}
+
+export interface GetCampaignEnumsReq {
+	parentId?: number // 父级ID
+}
+
+export interface Company {
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 公司名称
+	status: number // 项目状态: 0关闭，1开启
+}
+
+export interface AddCompanyReq {
+	name: string // 公司名称
+	status: number // 项目状态: 0关闭，1开启
+}
+
+export interface PutCompanyReq {
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 公司名称
+	status: number // 项目状态: 0关闭，1开启
+}
+
+export interface DelCompanyReq {
+	id: number // 公司 ID
+}
+
+export interface GetCompanyReq {
+	id: number // 公司 ID
+}
+
+export interface GetCompanyListReq {
+}
+export interface GetCompanyListReqParams {
+	pageSize: number // 页面容量，默认20，可选
+	page: number // 当前页码，默认1，可选
+	current: number // 当前页码，默认1，用于对接umijs，可选
+	keyword: string // 关键词，可选
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 公司名称
+	status: number // 项目状态: 0关闭，1开启
+}
+
+export interface GetCompanyEnumsReq {
+	parentId?: number // 父级ID
+}
+
+export interface Project {
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 项目名称
+	companyId: number // 公司id
+	status: number // 项目状态: 0已下线，1已上线
+}
+
+export interface AddProjectReq {
+	name: string // 项目名称
+	companyId: number // 公司id
+	status: number // 项目状态: 0已下线，1已上线
+}
+
+export interface PutProjectReq {
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 项目名称
+	companyId: number // 公司id
+	status: number // 项目状态: 0已下线，1已上线
+}
+
+export interface DelProjectReq {
+	id: number // 项目 ID
+}
+
+export interface GetProjectReq {
+	id: number // 项目 ID
+}
+
+export interface GetProjectListReq {
+}
+export interface GetProjectListReqParams {
+	pageSize: number // 页面容量，默认20，可选
+	page: number // 当前页码，默认1，可选
+	current: number // 当前页码，默认1，用于对接umijs，可选
+	keyword: string // 关键词，可选
+	id: number // 表主键
+	uuid: string // UUID
+	name: string // 项目名称
+	companyId: number // 公司id
+	status: number // 项目状态: 0已下线，1已上线
+}
+
+export interface GetProjectEnumsReq {
+	parentId?: number // 父级ID
+}
+
+export interface Web {
+	id: number // 表主键
+	uuid: string // UUID
+	projectId: number // 项目id
+	url: string // 连接
+	description: string // 备注
+	code: string // 代码
+}
+
+export interface AddWebReq {
+	projectId: number // 项目id
+	url: string // 连接
+	description: string // 备注
+	code: string // 代码
+}
+
+export interface PutWebReq {
+	id: number // 表主键
+	uuid: string // UUID
+	projectId: number // 项目id
+	url: string // 连接
+	description: string // 备注
+	code: string // 代码
+}
+
+export interface DelWebReq {
+	id: number // 网站 ID
+}
+
+export interface GetWebReq {
+	id: number // 网站 ID
+}
+
+export interface GetWebListReq {
+}
+export interface GetWebListReqParams {
+	pageSize: number // 页面容量，默认20，可选
+	page: number // 当前页码，默认1，可选
+	current: number // 当前页码，默认1，用于对接umijs，可选
+	keyword: string // 关键词，可选
+	id: number // 表主键
+	uuid: string // UUID
+	projectId: number // 项目id
+	url: string // 连接
+	description: string // 备注
+	code: string // 代码
+}
+
+export interface GetWebEnumsReq {
+	parentId?: number // 父级ID
 }
 
